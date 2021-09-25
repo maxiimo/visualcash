@@ -4,6 +4,7 @@ com\backend\visualcash\service\PaquetesVisualcashService.class
 com\backend\visualcash\email\dto\EmailValuesDTO.class
 com\backend\visualcash\dto\ResponseMensaje.class
 com\backend\visualcash\repository\PaquetesVisualcashRepository.class
+com\backend\visualcash\security\MainSecurity$1.class
 com\backend\visualcash\security\controller\UserController.class
 com\backend\visualcash\security\service\UserDetailsServiceImpl.class
 com\backend\visualcash\security\repository\UsuarioRepository.class
@@ -21,7 +22,6 @@ com\backend\visualcash\entity\UsuarioPaquete.class
 com\backend\visualcash\security\dto\JwtDto.class
 com\backend\visualcash\entity\UsuarioPaqueteId.class
 com\backend\visualcash\security\entity\Usuario.class
-com\backend\visualcash\VisualcashApplication$1.class
 com\backend\visualcash\security\entity\Rol.class
 com\backend\visualcash\security\jwt\JwtProvider.class
 com\backend\visualcash\email\service\EmailService.class
