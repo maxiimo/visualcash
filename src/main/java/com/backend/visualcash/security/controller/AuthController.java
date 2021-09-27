@@ -105,7 +105,7 @@ public class AuthController {
         usuario.setRoles(roles);
         usuarioService.save(usuario);
         String Url = getSiteURL(request)+"/account/verify?code="+usuario.getVerificationCode();
-        EmailValuesDTO dto = new EmailValuesDTO(mailFrom, emailUser,"ACTIVACION DE CUENTA","Haz click <a href='"+url+"'>aquí</a> para activar tu cuenta.<br><br>Si no se realiza la confirmación del correo durante las próximas 24 horas el registro será eliminado.");
+        EmailValuesDTO dto = new EmailValuesDTO(mailFrom, emailUser,"ACTIVACION DE CUENTA","Haz click <a href='"+Url+"'>aquí</a> para activar tu cuenta.<br><br>Si no se realiza la confirmación del correo durante las próximas 24 horas el registro será eliminado.");
         emailService.sendEmail(dto
                 ,Url);
         return new ResponseEntity(new Mensaje("Se ha enviado un correo de confirmación al correo electrónico <b>"+emailUser+"</b>."), HttpStatus.CREATED);
@@ -142,7 +142,7 @@ public class AuthController {
     }
 
     @GetMapping("/verify")
-    public ModelAndView verifyUser(@Param("code") String code, HttpServletRequest request) {
+    public ModelAndView verifyUser(@Param("code") String code) {
         ModelAndView modelAndView = new ModelAndView();
         ModelMap modelMapView = modelAndView.getModelMap();
         modelMapView.addAttribute("estado", usuarioService.verify(code));
