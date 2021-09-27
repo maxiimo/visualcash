@@ -14,4 +14,5 @@ public interface UserInfo {
     float getCoins();
     String getPaquete();
     int getComunidad();
+    Object getLastRefers();
 }
