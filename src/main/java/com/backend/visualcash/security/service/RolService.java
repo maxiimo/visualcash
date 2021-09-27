@@ -23,4 +23,8 @@ public class RolService {
     public void save(Rol rol){
         rolRepository.save(rol);
     }
+    
+    public boolean exist(RolNombre rolNombre){
+        return rolRepository.existByRolNombre(rolNombre);
+    }
 }
