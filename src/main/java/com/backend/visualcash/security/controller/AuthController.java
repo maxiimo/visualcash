@@ -97,7 +97,7 @@ public class AuthController {
                 new Usuario(emailUser,passwordEncoder.encode(passwordUser),
                         RandomString.make(64), false, (int) new Date().getTime());
         Set<Rol> roles = new HashSet<>();
-        if(!rolService.exist(RolNombre.ROLE_USER))
+        if(!rolService.existsByRolNombre(RolNombre.ROLE_USER))
             rolService.save(new Rol(RolNombre.ROLE_USER));
         roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
         /*if(nuevoUsuario.getRoles().contains("admin"))
