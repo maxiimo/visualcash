@@ -35,7 +35,7 @@ public class PaqueteController {
     PaquetesVisualcashService pvcs;
     
     @GetMapping
-    public ResponseEntity<Paquete> list() throws IOException{
+    public ResponseEntity<List<Paquete>> list() throws IOException{
         /*CoinPayments api = CoinPayments.builder()
         .publicKey("f5fa63a03680161eaefb6115f03709d93d03ce61e51afe8882633c2fef5aebd7")
         .privateKey("ee97e95FCE9Db29119a44A54679429198720b6f2B8a61bdBF3A72D522aC32e37")
@@ -44,6 +44,10 @@ public class PaqueteController {
 ResponseWrapper<BasicInfoResponse> accountInfo = api.sendRequest(new CoinPaymentsBasicAccountInfoRequest());
 logger.error("Account: " + accountInfo.getResult());
 return new ResponseEntity(accountInfo.getResult(), HttpStatus.OK);*/
+        if(!pvcs.existsByNombre("Visual 32")){
+            pvcs.save(new Paquete("Visual 32", "PAQUETE VISUAL circular32 MORADO-01.png", "30 USD EN INVERSION/2  USD EN COINS/15 VISUALIZACIONES DIARIAS/PAGO DIARIO 0.78 USD/DIAS HABILES DE LUNES A VIERNES",
+                    32.00, 20, 0.75, 15));
+        }
         return new ResponseEntity(pvcs.list(), HttpStatus.OK);
     }
 }
