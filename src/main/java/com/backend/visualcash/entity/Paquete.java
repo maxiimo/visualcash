@@ -47,8 +47,8 @@ public class Paquete {
     @Column(nullable = false)
     private boolean active = true;    
     
-    @OneToOne(mappedBy = "paquete")
-    private UsuarioPaquete usuario;
+    @OneToMany(mappedBy = "paquete")
+    private Set<UsuarioPaquete> usuarioPaquete;
     
     @OneToMany(mappedBy="paquete")
     private Set<Payments> payment;
@@ -149,12 +149,12 @@ public class Paquete {
         this.active = active;
     }
 
-    public UsuarioPaquete getUsuario() {
-        return usuario;
+    public Set<UsuarioPaquete> getUsuario() {
+        return usuarioPaquete;
     }
 
-    public void setUsuario(UsuarioPaquete usuario) {
-        this.usuario = usuario;
+    public void setUsuario(Set<UsuarioPaquete> usuarioPaquete) {
+        this.usuarioPaquete = usuarioPaquete;
     }
 
     public Set<Payments> getPayment() {
