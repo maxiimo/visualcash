@@ -51,8 +51,8 @@ public class PaymentsController {
         Optional<Paquete> paq = pvcs.getByNombre(paquete);
         Optional<Usuario> user = usuarioService.getByEmail(principal.getName());
         if(paq.isPresent() && user.isPresent()){
-            /*Payments payment = new Payments("1",to_currency,"BTC", 32, 32, "gateway_id", "gateway_url", "pending", user.get(), paq.get());
-            paymenService.save(payment);*/
+            Payments payment = new Payments("1",to_currency,"BTC", 32, 32, "gateway_id", "gateway_url", "pending", user.get(), paq.get());
+            paymenService.save(payment);
             return new ResponseEntity(new CoinpaymentsApiDto().createTransaction(to_currency, user.get().getEmail(), paq.get().getPrecio()), HttpStatus.OK);
         }
         return new ResponseEntity(new Mensaje("Datos incorrectos."), HttpStatus.BAD_REQUEST);
