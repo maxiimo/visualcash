@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -44,10 +45,10 @@ public class Paquete {
     private int n_anuncios;
     
     @Column(nullable = false)
-    private boolean active = true;
+    private boolean active = true;    
     
-    @OneToMany(mappedBy = "paquete")
-    private Set<UsuarioPaquete> usuarioPaquete;
+    @OneToOne(mappedBy = "paquete")
+    private Set<UsuarioPaquete> usuario;
     
     @OneToMany(mappedBy="paquete")
     private Set<Payments> payment;
@@ -149,11 +150,11 @@ public class Paquete {
     }
 
     public Set<UsuarioPaquete> getUsuario() {
-        return usuarioPaquete;
+        return usuario;
     }
 
-    public void setUsuario(Set<UsuarioPaquete> usuarioPaquete) {
-        this.usuarioPaquete = usuarioPaquete;
+    public void setUsuario(Set<UsuarioPaquete> usuario) {
+        this.usuario = usuario;
     }
 
     public Set<Payments> getPayment() {
