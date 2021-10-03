@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,12 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/paquetesVisualcash")
+@CrossOrigin(origins = "*")
+
 public class PaqueteController {
     Logger logger = LoggerFactory.getLogger(PaqueteController.class);
     @Autowired
     PaquetesVisualcashService pvcs;
     
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<Paquete>> list() throws IOException{
         /*CoinPayments api = CoinPayments.builder()
         .publicKey("f5fa63a03680161eaefb6115f03709d93d03ce61e51afe8882633c2fef5aebd7")
