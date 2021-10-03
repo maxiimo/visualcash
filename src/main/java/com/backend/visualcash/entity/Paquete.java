@@ -149,11 +149,11 @@ public class Paquete {
         this.active = active;
     }
 
-    public Set<UsuarioPaquete> getUsuario() {
+    public UsuarioPaquete getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Set<UsuarioPaquete> usuario) {
+    public void setUsuario(UsuarioPaquete usuario) {
         this.usuario = usuario;
     }
 
