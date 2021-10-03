@@ -43,7 +43,18 @@ public class PaymentsController {
     PaymenService paymenService;
     
     @PostMapping("/paquete-visualcash")
-    public String buyPaquete(@RequestParam String paquete,@RequestParam String to_currency,Principal principal) throws IOException {
-        return "ok";
+    public ResponseEntity<String> buyPaquete(@RequestParam String paquete,@RequestParam String to_currency,Principal principal) throws IOException {
+        if(!pvcs.existsByNombre(paquete)){
+            pvcs.save(new Paquete(paquete, "PAQUETE VISUAL circular32 MORADO-01.png", "30 USD EN INVERSION/2  USD EN COINS/15 VISUALIZACIONES DIARIAS/PAGO DIARIO 0.78 USD/DIAS HABILES DE LUNES A VIERNES",
+                    32.00, 20, 0.75, 15));
+        }
+        Optional<Paquete> paq = pvcs.getByNombre(paquete);
+        Optional<Usuario> user = usuarioService.getByEmail(principal.getName());
+        if(paq.isPresent() && user.isPresent()){
+            /*Payments payment = new Payments("1",to_currency,"BTC", 32, 32, "gateway_id", "gateway_url", "pending", user.get(), paq.get());
+            paymenService.save(payment);*/
+            return new ResponseEntity(new CoinpaymentsApiDto().createTransaction(to_currency, user.get().getEmail(), paq.get().getPrecio()), HttpStatus.OK);
+        }
+        return new ResponseEntity(new Mensaje("Datos incorrectos."), HttpStatus.BAD_REQUEST);
     }
 }
