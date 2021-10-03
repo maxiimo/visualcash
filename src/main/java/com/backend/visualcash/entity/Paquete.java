@@ -29,32 +29,33 @@ public class Paquete {
     
     @NotNull
     @Column(nullable = false)
-    private float precio;
+    private Double precio;
     
     @NotNull
     @Column(nullable = false)
-    private float coins;
+    private int coins;
     
     @NotNull
     @Column(nullable = false)
-    private float pago_diario;
+    private Double pago_diario;
     
     @NotNull
     @Column(nullable = false)
-    private float n_anuncios;
+    private int n_anuncios;
     
-    @NotNull
     @Column(nullable = false)
-    private boolean active;
+    private boolean active = true;
     
     @OneToMany(mappedBy = "paquete")
     private Set<UsuarioPaquete> usuario;
+    
+    @OneToMany(mappedBy="paquete")
+    private Set<Payments> payment;
 
     public Paquete() {
     }
 
-    public Paquete(int id, String nombre, String imagen, String descripcion, float precio, float coins, float pago_diario, float n_anuncios) {
-        this.id = id;
+    public Paquete(String nombre, String imagen, String descripcion, Double precio, int coins, Double pago_diario, int n_anuncios) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.descripcion = descripcion;
@@ -64,8 +65,7 @@ public class Paquete {
         this.n_anuncios = n_anuncios;
     }
     
-    public Paquete(int id, String nombre, String imagen, String descripcion, float precio, float coins, float pago_diario, float n_anuncios, boolean active) {
-        this.id = id;
+    public Paquete(String nombre, String imagen, String descripcion, Double precio, int coins, Double pago_diario, int n_anuncios, boolean active) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.descripcion = descripcion;
@@ -108,35 +108,35 @@ public class Paquete {
         this.descripcion = descripcion;
     }
 
-    public float getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
-    public float getCoins() {
+    public int getCoins() {
         return coins;
     }
 
-    public void setCoins(float coins) {
+    public void setCoins(int coins) {
         this.coins = coins;
     }
 
-    public float getPago_diario() {
+    public Double getPago_diario() {
         return pago_diario;
     }
 
-    public void setPago_diario(float pago_diario) {
+    public void setPago_diario(Double pago_diario) {
         this.pago_diario = pago_diario;
     }
 
-    public float getN_anuncios() {
+    public int getN_anuncios() {
         return n_anuncios;
     }
 
-    public void setN_anuncios(float n_anuncios) {
+    public void setN_anuncios(int n_anuncios) {
         this.n_anuncios = n_anuncios;
     }
 
@@ -147,5 +147,22 @@ public class Paquete {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public Set<UsuarioPaquete> getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Set<UsuarioPaquete> usuario) {
+        this.usuario = usuario;
+    }
+
+    public Set<Payments> getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Set<Payments> payment) {
+        this.payment = payment;
+    }
+    
 
 }

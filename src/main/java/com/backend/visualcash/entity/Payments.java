@@ -1,0 +1,217 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.backend.visualcash.entity;
+
+import com.backend.visualcash.security.entity.Usuario;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+
+/**
+ *
+ * @author Fabian
+ */
+@Entity
+public class Payments {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    
+    @NotNull
+    @Column(nullable = false, length = 255)
+    private String producto;
+    
+    @NotNull
+    @Column(nullable = false, length = 255)
+    private String from_currency;
+    
+    @NotNull
+    @Column(nullable = false, length = 255)
+    private String to_currency;
+    
+    @NotNull
+    @Column(nullable = false)
+    private int entered_amount;  
+    
+    @NotNull
+    @Column(nullable = false)
+    private int amount; 
+    
+    @NotNull
+    @Column(nullable = false, length = 255)
+    private String gateway_id;   
+    
+    @NotNull
+    @Column(nullable = false, length = 255)
+    private String gateway_url;    
+    
+    @NotNull
+    @Column(nullable = false, length = 255)
+    private String status;    
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", updatable = false,
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt;    
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", updatable = true,
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updatedAt;
+    
+    @NotNull    
+    @ManyToOne
+    @JoinColumn(name="id_user", nullable=false)
+    private Usuario usuario;
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="id_prod", nullable=false)
+    private Paquete paquete;
+
+    public Payments() {        
+    }    
+
+    public Payments(@NotNull String producto, @NotNull String from_currency, @NotNull String to_currency, @NotNull int entered_amount,
+            @NotNull int amount, @NotNull String gateway_id, @NotNull String gateway_url, @NotNull String status,
+            Usuario usuario, Paquete paquete) {
+        this.producto = producto;
+        this.from_currency = from_currency;
+        this.to_currency = to_currency;
+        this.entered_amount = entered_amount;
+        this.amount = amount;
+        this.gateway_id = gateway_id;
+        this.gateway_url = gateway_url;
+        this.status = status;
+        this.usuario = usuario;
+        this.paquete = paquete;  
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    public String getFrom_currency() {
+        return from_currency;
+    }
+
+    public void setFrom_currency(String from_currency) {
+        this.from_currency = from_currency;
+    }
+
+    public String getTo_currency() {
+        return to_currency;
+    }
+
+    public void setTo_currency(String to_currency) {
+        this.to_currency = to_currency;
+    }
+
+    public int getEntered_amount() {
+        return entered_amount;
+    }
+
+    public void setEntered_amount(int entered_amount) {
+        this.entered_amount = entered_amount;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public String getGateway_id() {
+        return gateway_id;
+    }
+
+    public void setGateway_id(String gateway_id) {
+        this.gateway_id = gateway_id;
+    }
+
+    public String getGateway_url() {
+        return gateway_url;
+    }
+
+    public void setGateway_url(String gateway_url) {
+        this.gateway_url = gateway_url;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Date getCreated_at() {
+        return createdAt;        
+    }
+
+    public void setCreated_at(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Paquete getPaquete() {
+        return paquete;
+    }
+
+    public void setPaquete(Paquete paquete) {
+        this.paquete = paquete;
+    }
+    
+    
+}

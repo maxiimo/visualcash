@@ -28,22 +28,22 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Fabian
  */
 @RestController
-@RequestMapping("/paquetes")
+@RequestMapping("/paquetesVisualcash")
 public class PaqueteController {
     Logger logger = LoggerFactory.getLogger(PaqueteController.class);
     @Autowired
     PaquetesVisualcashService pvcs;
     
-    @GetMapping("/visualcash")
+    @GetMapping
     public ResponseEntity<Paquete> list() throws IOException{
-        CoinPayments api = CoinPayments.builder()
+        /*CoinPayments api = CoinPayments.builder()
         .publicKey("f5fa63a03680161eaefb6115f03709d93d03ce61e51afe8882633c2fef5aebd7")
         .privateKey("ee97e95FCE9Db29119a44A54679429198720b6f2B8a61bdBF3A72D522aC32e37")
         .client(HttpClients.createDefault()).build();
 
 ResponseWrapper<BasicInfoResponse> accountInfo = api.sendRequest(new CoinPaymentsBasicAccountInfoRequest());
 logger.error("Account: " + accountInfo.getResult());
-return new ResponseEntity(accountInfo.getResult(), HttpStatus.OK);
-        //return new ResponseEntity(pvcs.list(), HttpStatus.OK);
+return new ResponseEntity(accountInfo.getResult(), HttpStatus.OK);*/
+        return new ResponseEntity(pvcs.list(), HttpStatus.OK);
     }
 }

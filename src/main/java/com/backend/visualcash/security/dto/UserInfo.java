@@ -14,5 +14,8 @@ public interface UserInfo {
     float getCoins();
     String getPaquete();
     int getComunidad();
-    Object getLastRefers();
+    int getDiasPaq();
+    int getDiasPaqComplete();
+    int getNAnuncios();
+    String getLastRefers();
 }

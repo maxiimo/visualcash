@@ -1,5 +1,6 @@
 package com.backend.visualcash.security.entity;
 
+import com.backend.visualcash.entity.Payments;
 import com.backend.visualcash.entity.UsuarioPaquete;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,9 +22,8 @@ public class Usuario {
     @Column(length = 64)
     private String verificationCode;
     
-    @NotNull
     @Column(nullable = false)
-    private boolean active;
+    private boolean active = true;
     
     @Column(nullable = false, columnDefinition = "decimal(10,2) default 00.00")
     private double saldo;
@@ -40,6 +40,9 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private Set<UsuarioPaquete> paquete;
 
+    @OneToMany(mappedBy="usuario")
+    private Set<Payments> payment;
+    
     @NotNull
     @Column(nullable = false, length = 14)
     private int my_code_refer;
@@ -135,6 +138,14 @@ public class Usuario {
 
     public void setPaquete(Set<UsuarioPaquete> paquete) {
         this.paquete = paquete;
+    }
+
+    public Set<Payments> getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Set<Payments> payment) {
+        this.payment = payment;
     }
 
     public int getMy_code_refer() {
