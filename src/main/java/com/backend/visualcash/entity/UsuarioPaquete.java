@@ -6,6 +6,7 @@
 package com.backend.visualcash.entity;
 
 import com.backend.visualcash.security.entity.Usuario;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,20 +22,18 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="user_paquete")
-public class UsuarioPaquete {
+public class UsuarioPaquete implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @NotNull
     @OneToOne
-    @JoinColumn(name="id_paquete", nullable=false)
+    @JoinColumn(name="id_paquete")
     private Paquete paquete;
-
-    @NotNull    
+    
     @OneToOne
-    @JoinColumn(name="id_user", nullable=false)
+    @JoinColumn(name="id_user")
     private Usuario usuario;
     
     @Column(columnDefinition = "tinyint",  length = 2)

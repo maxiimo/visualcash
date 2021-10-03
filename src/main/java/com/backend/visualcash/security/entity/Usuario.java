@@ -2,13 +2,14 @@ package com.backend.visualcash.security.entity;
 
 import com.backend.visualcash.entity.Payments;
 import com.backend.visualcash.entity.UsuarioPaquete;
+import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Usuario {
+public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
