@@ -5,14 +5,13 @@
  */
 package com.backend.visualcash.entity;
 
-import com.backend.visualcash.entity.Paquete;
 import com.backend.visualcash.security.entity.Usuario;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,8 +23,10 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="user_paquete")
 public class UsuarioPaquete {
-    @EmbeddedId
-    UsuarioPaqueteId id;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     @NotNull
     @OneToOne
@@ -49,7 +50,7 @@ public class UsuarioPaquete {
     public UsuarioPaquete() {
     }
 
-    public UsuarioPaquete(UsuarioPaqueteId id, Usuario usuario, Paquete paquete, int dias, int n_anuncios, int dias_completados) {
+    public UsuarioPaquete(Usuario usuario, Paquete paquete, int dias, int n_anuncios, int dias_completados) {
         this.usuario = usuario;
         this.paquete = paquete;
         this.dias = dias;
@@ -98,6 +99,12 @@ public class UsuarioPaquete {
     public void setDias_completados(int dias_completados) {
         this.dias_completados = dias_completados;
     }
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
