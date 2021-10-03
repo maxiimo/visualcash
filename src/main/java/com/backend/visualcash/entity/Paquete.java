@@ -48,7 +48,7 @@ public class Paquete {
     private boolean active = true;    
     
     @OneToOne(mappedBy = "paquete")
-    private Set<UsuarioPaquete> usuario;
+    private UsuarioPaquete usuario;
     
     @OneToMany(mappedBy="paquete")
     private Set<Payments> payment;

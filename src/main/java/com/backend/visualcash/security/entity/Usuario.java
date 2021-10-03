@@ -38,7 +38,7 @@ public class Usuario {
     private Set<Rol> roles = new HashSet<>();
     
     @OneToOne(mappedBy = "usuario")
-    private Set<UsuarioPaquete> usuarioPaquete;
+    private UsuarioPaquete usuarioPaquete;
 
     @OneToMany(mappedBy="usuario")
     private Set<Payments> payment;
@@ -132,11 +132,11 @@ public class Usuario {
         this.coins = coins;
     }
 
-    public Set<UsuarioPaquete> getPaquete() {
+    public UsuarioPaquete getPaquete() {
         return usuarioPaquete;
     }
 
-    public void setPaquete(Set<UsuarioPaquete> usuarioPaquete) {
+    public void setPaquete(UsuarioPaquete usuarioPaquete) {
         this.usuarioPaquete = usuarioPaquete;
     }
 
