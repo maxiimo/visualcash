@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 package com.backend.visualcash.entity;
-
+/*
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-
+*/
 /**
  *
  * @author Fabian
  */
-@Embeddable
-public class UsuarioPaqueteId implements Serializable {
-    @Column(name="id_user")
+/*@Embeddable*/
+public class UsuarioPaqueteId /*implements Serializable*/ {
+    /*@Column(name="id_user")
     private int idUser; 
     @Column(name="id_paquete")
     private int idPaquete; 
@@ -39,6 +39,6 @@ public class UsuarioPaqueteId implements Serializable {
 
     public void setIdPaquete(int idPaquete) {
         this.idPaquete = idPaquete;
-    }
+    }*/
     
 }

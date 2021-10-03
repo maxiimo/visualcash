@@ -47,7 +47,7 @@ public class Paquete {
     private boolean active = true;
     
     @OneToMany(mappedBy = "paquete")
-    private Set<UsuarioPaquete> usuario;
+    private Set<UsuarioPaquete> usuarioPaquete;
     
     @OneToMany(mappedBy="paquete")
     private Set<Payments> payment;
@@ -149,11 +149,11 @@ public class Paquete {
     }
 
     public Set<UsuarioPaquete> getUsuario() {
-        return usuario;
+        return usuarioPaquete;
     }
 
-    public void setUsuario(Set<UsuarioPaquete> usuario) {
-        this.usuario = usuario;
+    public void setUsuario(Set<UsuarioPaquete> usuarioPaquete) {
+        this.usuarioPaquete = usuarioPaquete;
     }
 
     public Set<Payments> getPayment() {

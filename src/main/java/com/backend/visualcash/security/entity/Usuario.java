@@ -37,8 +37,8 @@ public class Usuario {
     inverseJoinColumns = @JoinColumn(name = "id_rol"))
     private Set<Rol> roles = new HashSet<>();
     
-    @OneToMany(mappedBy = "usuario")
-    private Set<UsuarioPaquete> paquete;
+    @OneToOne(mappedBy = "usuario")
+    private Set<UsuarioPaquete> usuarioPaquete;
 
     @OneToMany(mappedBy="usuario")
     private Set<Payments> payment;
@@ -133,11 +133,11 @@ public class Usuario {
     }
 
     public Set<UsuarioPaquete> getPaquete() {
-        return paquete;
+        return usuarioPaquete;
     }
 
-    public void setPaquete(Set<UsuarioPaquete> paquete) {
-        this.paquete = paquete;
+    public void setPaquete(Set<UsuarioPaquete> usuarioPaquete) {
+        this.usuarioPaquete = usuarioPaquete;
     }
 
     public Set<Payments> getPayment() {

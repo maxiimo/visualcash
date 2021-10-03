@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -25,17 +26,17 @@ import javax.validation.constraints.NotNull;
 public class UsuarioPaquete {
     @EmbeddedId
     UsuarioPaqueteId id;
-
-    @ManyToOne
-    @MapsId("idUser")
-    @JoinColumn(name="id_user")
-    private Usuario usuario;
-
-    @ManyToOne
-    @MapsId("idPaquete")
-    @JoinColumn(name="id_paquete")
+    
+    @NotNull
+    @OneToOne
+    @JoinColumn(name="id_paquete", nullable=false)
     private Paquete paquete;
 
+    @NotNull    
+    @OneToOne
+    @JoinColumn(name="id_user", nullable=false)
+    private Usuario usuario;
+    
     @Column(columnDefinition = "tinyint",  length = 2)
     private int dias;
     
@@ -49,7 +50,6 @@ public class UsuarioPaquete {
     }
 
     public UsuarioPaquete(UsuarioPaqueteId id, Usuario usuario, Paquete paquete, int dias, int n_anuncios, int dias_completados) {
-        this.id = id;
         this.usuario = usuario;
         this.paquete = paquete;
         this.dias = dias;
