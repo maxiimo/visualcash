@@ -14,14 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  *
  * @author Fabian
  */
 @Entity
-@Table(name="user_paquete")
 public class UsuarioPaquete  {
     
     @Id
@@ -48,22 +46,20 @@ public class UsuarioPaquete  {
     public UsuarioPaquete() {
     }
 
-    public UsuarioPaquete(Usuario usuario, Paquete paquete, int dias, int n_anuncios, int dias_completados) {
-        this.usuario = usuario;
+    public UsuarioPaquete(Paquete paquete, Usuario usuario, int dias, int n_anuncios, int dias_completados) {
         this.paquete = paquete;
+        this.usuario = usuario;
         this.dias = dias;
         this.n_anuncios = n_anuncios;
         this.dias_completados = dias_completados;
     }
 
-    
-
-    public Usuario getUsuario() {
-        return usuario;
+    public int getId() {
+        return id;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Paquete getPaquete() {
@@ -72,6 +68,14 @@ public class UsuarioPaquete  {
 
     public void setPaquete(Paquete paquete) {
         this.paquete = paquete;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getDias() {
@@ -97,12 +101,6 @@ public class UsuarioPaquete  {
     public void setDias_completados(int dias_completados) {
         this.dias_completados = dias_completados;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    
+    
 }
