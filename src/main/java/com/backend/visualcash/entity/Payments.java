@@ -60,15 +60,6 @@ public class Payments {
     @Column(nullable = false, length = 255)
     private String status;    
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false,
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date createdAt = new Date();    
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", updatable = true,
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Date updatedAt = new Date();;
     
     @NotNull    
     @ManyToOne
@@ -77,7 +68,7 @@ public class Payments {
     
     @NotNull
     @ManyToOne
-    @JoinColumn(name="id_prod", nullable=false)
+    @JoinColumn(name="id_paquete", nullable=false)
     private Paquete paquete;
 
     public Payments() {        
@@ -168,30 +159,6 @@ public class Payments {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Date getCreated_at() {
-        return createdAt;        
-    }
-
-    public void setCreated_at(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public Usuario getUsuario() {
