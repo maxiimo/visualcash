@@ -1,8 +1,10 @@
 package com.backend.visualcash.entity;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,10 +49,10 @@ public class Paquete {
     @Column(nullable = false)
     private boolean active = true;    
     
-    @OneToMany(mappedBy = "paquete")
+    @OneToMany(mappedBy = "paquete", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UsuarioPaquete> usuarioPaquete;
     
-    @OneToMany(mappedBy="paquete")
+    @OneToMany(mappedBy="paquete", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Payments> payment;
 
     public Paquete() {

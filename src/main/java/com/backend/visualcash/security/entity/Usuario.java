@@ -37,10 +37,10 @@ public class Usuario {
     inverseJoinColumns = @JoinColumn(name = "id_rol"))
     private Set<Rol> roles = new HashSet<>();
     
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private UsuarioPaquete usuarioPaquete;
 
-    @OneToMany(mappedBy="usuario")
+    @OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Payments> payment;
     
     @NotNull
