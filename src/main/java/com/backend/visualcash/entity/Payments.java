@@ -60,6 +60,14 @@ public class Payments {
     @Column(nullable = false, length = 255)
     private String status;    
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at")
+    private Date createdAt;    
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", updatable = true,
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date updatedAt;
     
     @NotNull    
     @ManyToOne
@@ -159,6 +167,22 @@ public class Payments {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Usuario getUsuario() {
