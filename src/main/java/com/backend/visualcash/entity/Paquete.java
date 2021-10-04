@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class Paquete {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     
     @NotNull
     @Column(nullable = false, length = 40)
@@ -79,11 +79,11 @@ public class Paquete {
         this.active = active;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

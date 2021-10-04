@@ -24,7 +24,7 @@ public class UsuarioPaquete  {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     
     @ManyToOne
     @JoinColumn(name="id_paquete")
@@ -34,13 +34,13 @@ public class UsuarioPaquete  {
     @JoinColumn(name="id_user")
     private Usuario usuario;
     
-    @Column(columnDefinition = "tinyint",  length = 2)
+    @Column(length = 2)
     private int dias;
     
-    @Column(columnDefinition = "tinyint",  length = 2)
+    @Column(length = 2)
     private int n_anuncios;
     
-    @Column(columnDefinition = "tinyint", length = 2)
+    @Column(length = 2)
     private int dias_completados;
 
     public UsuarioPaquete() {
@@ -54,11 +54,11 @@ public class UsuarioPaquete  {
         this.dias_completados = dias_completados;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -100,7 +100,5 @@ public class UsuarioPaquete  {
 
     public void setDias_completados(int dias_completados) {
         this.dias_completados = dias_completados;
-    }
-    
-    
+    } 
 }

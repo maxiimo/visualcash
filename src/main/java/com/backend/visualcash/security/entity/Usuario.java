@@ -11,7 +11,7 @@ import java.util.Set;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     
     @Column(nullable = false, unique = true, length = 200)
     private String email;
@@ -69,11 +69,11 @@ public class Usuario {
         this.my_code_refer = my_code_refer;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

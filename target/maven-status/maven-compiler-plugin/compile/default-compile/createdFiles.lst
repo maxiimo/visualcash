@@ -1,5 +1,8 @@
 com\backend\visualcash\controller\PaqueteController.class
 com\backend\visualcash\security\jwt\JwtEntryPoint.class
+com\backend\visualcash\entity\Payments.class
+com\backend\visualcash\dto\CoinpaymentsApiDto.class
+com\backend\visualcash\repository\PaymentRepository.class
 com\backend\visualcash\service\PaquetesVisualcashService.class
 com\backend\visualcash\email\dto\EmailValuesDTO.class
 com\backend\visualcash\dto\ResponseMensaje.class
@@ -19,12 +22,13 @@ com\backend\visualcash\entity\Paquete.class
 com\backend\visualcash\security\repository\RolRepository.class
 com\backend\visualcash\security\MainSecurity.class
 com\backend\visualcash\entity\UsuarioPaquete.class
+com\backend\visualcash\controller\PaymentsController.class
 com\backend\visualcash\security\dto\JwtDto.class
-com\backend\visualcash\entity\UsuarioPaqueteId.class
 com\backend\visualcash\security\entity\Usuario.class
 com\backend\visualcash\security\entity\Rol.class
 com\backend\visualcash\security\jwt\JwtProvider.class
 com\backend\visualcash\email\service\EmailService.class
+com\backend\visualcash\service\PaymenService.class
 com\backend\visualcash\security\enums\RolNombre.class
 com\backend\visualcash\security\jwt\JwtTokenFilter.class
 com\backend\visualcash\util\CreateRoles.class

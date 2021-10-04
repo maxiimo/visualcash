@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 public class Payments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     
     @NotNull
     @Column(nullable = false, length = 255)
@@ -63,12 +63,12 @@ public class Payments {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", updatable = false,
             columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date createdAt;    
+    private Date createdAt = new Date();    
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", updatable = true,
             columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Date updatedAt;
+    private Date updatedAt = new Date();;
     
     @NotNull    
     @ManyToOne
@@ -98,11 +98,11 @@ public class Payments {
         this.paquete = paquete;  
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
