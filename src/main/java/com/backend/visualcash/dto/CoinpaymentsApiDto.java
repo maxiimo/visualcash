@@ -21,13 +21,14 @@ public class CoinpaymentsApiDto {
     CoinPayments api;
     
     public CoinpaymentsApiDto() {
-        CoinPayments api = CoinPayments.builder()
+        this.api = CoinPayments.builder()
         .publicKey("f5fa63a03680161eaefb6115f03709d93d03ce61e51afe8882633c2fef5aebd7")
         .privateKey("ee97e95FCE9Db29119a44A54679429198720b6f2B8a61bdBF3A72D522aC32e37")
         .client(HttpClients.createDefault()).build();
     }
     
     public String createTransaction(String to_currency, String email, Double amount) throws IOException{
+        
         ResponseWrapper<CreateTransactionResponse> txResponse = this.api.sendRequest(CoinPaymentsCreateTransactionRequest.builder().amount(10)
         .amount(amount)
         .currencyPrice("USD")
