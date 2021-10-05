@@ -45,9 +45,7 @@ public class PaymentsController {
     PaymenService paymenService;
 
     @PostMapping("/paquete-visualcash")
-    public ResponseEntity<String> buyPaquete(@RequestParam String paquete, @RequestParam String to_currency, Principal principal, BindingResult bindingResult) throws IOException {
-        if(bindingResult.hasErrors())
-        return new ResponseEntity(new Mensaje("Datos incorrectos."), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> buyPaquete(@RequestParam String paquete, @RequestParam String to_currency, Principal principal) throws IOException {
         if (!pvcs.existsByNombre(paquete)) {
             pvcs.save(new Paquete(paquete, "PAQUETE VISUAL circular32 MORADO-01.png", "30 USD EN INVERSION/2  USD EN COINS/15 VISUALIZACIONES DIARIAS/PAGO DIARIO 0.78 USD/DIAS HABILES DE LUNES A VIERNES",
                     32.00, 20, 0.75, 15));
