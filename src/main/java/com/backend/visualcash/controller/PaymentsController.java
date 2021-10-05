@@ -61,7 +61,7 @@ public class PaymentsController {
                 Payments payment = new Payments("1", to_currency, "BTC", 32, 32, "gateway_id", "gateway_url", "pending", user.get(), paq.get());
                 paymenService.save(payment);
             }
-            return new ResponseEntity(result.getError(), HttpStatus.OK);
+            return new ResponseEntity(result.getError(), HttpStatus.OK); 
         }
         return new ResponseEntity("Ha ocurrido un error.", HttpStatus.BAD_REQUEST);
     }
