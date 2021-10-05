@@ -61,7 +61,8 @@ public class Payments {
     private String status;    
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at")
+    @Column(name = "created_at",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createdAt;    
     
     @Temporal(TemporalType.TIMESTAMP)
