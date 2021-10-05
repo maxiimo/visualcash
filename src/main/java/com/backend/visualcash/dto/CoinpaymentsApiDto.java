@@ -27,15 +27,14 @@ public class CoinpaymentsApiDto {
         .client(HttpClients.createDefault()).build();
     }
     
-    public String createTransaction(String to_currency, String email, Double amount) throws IOException{
+    public ResponseWrapper<CreateTransactionResponse> createTransaction(String to_currency, String email, Double amount) throws IOException{
         
-        ResponseWrapper<CreateTransactionResponse> txResponse = this.api.sendRequest(CoinPaymentsCreateTransactionRequest.builder().amount(10)
+        return this.api.sendRequest(CoinPaymentsCreateTransactionRequest.builder().amount(10)
         .amount(amount)
         .currencyPrice("USD")
         .currencyTransfer(to_currency)
         .callbackUrl("<callback-url-if-wanted>")
         .buyerEmail(email)
         .build());
-        return (txResponse.getResult().getTransactionId() + " - " + txResponse.getResult().getStatusUrl());
     }
 }
