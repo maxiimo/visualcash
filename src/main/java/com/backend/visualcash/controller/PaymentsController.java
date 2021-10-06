@@ -87,10 +87,10 @@ public class PaymentsController {
     }
     
     @PostMapping("/verify-pvc")
-    public ResponseEntity verifyPayment() throws MessagingException{
+    public ResponseEntity verifyPayment(@RequestParam String txn_id) throws MessagingException{
         emailService.sendEmail(new EmailValuesDTO(mailFrom,"ipn-url confirmed","ok.")
              ,url);
-        return new ResponseEntity("Ok.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
     
         public String getRemoteContents(String url) throws Exception {
