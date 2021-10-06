@@ -33,7 +33,7 @@ public class CoinpaymentsApiDto {
         .amount(amount)
         .currencyPrice("USD")
         .currencyTransfer(to_currency)
-        .callbackUrl("<callback-url-if-wanted>")
+        .callbackUrl("https://visualcash.herokuapp.com/payments/verify-pvc")
         .buyerEmail(email)
         .build());
     }

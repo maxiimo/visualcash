@@ -60,9 +60,6 @@ public class AuthController {
     @Autowired
     EmailService emailService;
     
-    @Value("${spring.mail.username}")
-    private String mailFrom; 
-    
     @Value("${url}")
     private String url; 
     
@@ -105,7 +102,7 @@ public class AuthController {
         usuario.setRoles(roles);
         usuarioService.save(usuario);
         String Url = getSiteURL(request)+"/auth/verify?code="+usuario.getVerificationCode();
-        EmailValuesDTO dto = new EmailValuesDTO(mailFrom, emailUser,"ACTIVACION DE CUENTA","Haz click <a href='"+Url+"'>aquí</a> para activar tu cuenta.<br><br>Si no se realiza la confirmación del correo durante las próximas 24 horas el registro será eliminado.");
+        EmailValuesDTO dto = new EmailValuesDTO(emailUser,"ACTIVACION DE CUENTA","Haz click <a href='"+Url+"'>aquí</a> para activar tu cuenta.<br><br>Si no se realiza la confirmación del correo durante las próximas 24 horas el registro será eliminado.");
         emailService.sendEmail(dto
                 ,Url);
         return new ResponseEntity(new Mensaje("Se ha enviado un correo de confirmación al correo electrónico <b>"+emailUser+"</b>."), HttpStatus.CREATED);
@@ -121,7 +118,7 @@ public class AuthController {
         usuario.setVerificationCode(UUID.randomUUID().toString());
         usuarioService.save(usuario);
         url = url+"/recoverPassword/changePassword?code="+usuario.getVerificationCode();
-        emailService.sendEmail(new EmailValuesDTO(mailFrom,email,"CAMBIAR CONTRASEÑA","Haz click <a href='"+url+"'>aquí</a> para cambiar tu contraseña. Este link tendrá una validez de 2 horas.")
+        emailService.sendEmail(new EmailValuesDTO(email,"CAMBIAR CONTRASEÑA","Haz click <a href='"+url+"'>aquí</a> para cambiar tu contraseña. Este link tendrá una validez de 2 horas.")
              ,url);
         return new ResponseEntity(new Mensaje("Se ha enviado un correo de cambio de contraseña al correo electrónico <b>"+email+"</b>."), HttpStatus.OK);
     }

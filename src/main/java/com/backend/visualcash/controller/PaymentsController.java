@@ -7,18 +7,26 @@ package com.backend.visualcash.controller;
 
 import com.backend.visualcash.dto.CoinpaymentsApiDto;
 import com.backend.visualcash.dto.Mensaje;
+import com.backend.visualcash.email.dto.EmailValuesDTO;
+import com.backend.visualcash.email.service.EmailService;
 import com.backend.visualcash.entity.Paquete;
 import com.backend.visualcash.entity.Payments;
 import com.backend.visualcash.security.entity.Usuario;
 import com.backend.visualcash.security.service.UsuarioService;
 import com.backend.visualcash.service.PaquetesVisualcashService;
 import com.backend.visualcash.service.PaymenService;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.Principal;
 import java.util.Optional;
+import javax.mail.MessagingException;
 import org.brunocvcunha.coinpayments.model.CreateTransactionResponse;
 import org.brunocvcunha.coinpayments.model.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,6 +52,15 @@ public class PaymentsController {
     @Autowired
     PaymenService paymenService;
 
+    @Autowired
+    EmailService emailService;
+    
+    @Value("${spring.mail.username}")
+    private String mailFrom;
+    
+    @Value("${url}")
+    private String url;
+    
     @PostMapping("/paquete-visualcash")
     public ResponseEntity<String> buyPaquete(@RequestParam String paquete, @RequestParam String to_currency, Principal principal) throws IOException {
         if (!pvcs.existsByNombre(paquete)) {
@@ -53,14 +70,37 @@ public class PaymentsController {
         Optional<Paquete> paq = pvcs.getByNombre(paquete);
         Optional<Usuario> user = usuarioService.getByEmail(principal.getName());
         if (paq.isPresent() && user.isPresent()) {
-            ResponseWrapper<CreateTransactionResponse> result
+            Paquete _paquete = paq.get();
+            ResponseWrapper<CreateTransactionResponse> transaction
                     = new CoinpaymentsApiDto().createTransaction(to_currency, user.get().getEmail(), paq.get().getPrecio());
-            if ("ok".equals(result.getError())) {
-                Payments payment = new Payments("1", to_currency, "BTC", 32, 32, "gateway_id", "gateway_url", "pending", user.get(), paq.get());
+            if ("ok".equals(transaction.getError())) {
+                CreateTransactionResponse result = transaction.getResult();
+                Payments payment = new Payments(to_currency, _paquete.getPrecio(), result.getAmount(), result.getTransactionId(),
+                        result.getStatusUrl(), "initialized", user.get(), paq.get());
                 paymenService.save(payment);
             }
-            return new ResponseEntity(result.getError(), HttpStatus.OK); 
+            return new ResponseEntity(transaction.getError(), HttpStatus.OK); 
         }
         return new ResponseEntity("Ha ocurrido un error.", HttpStatus.BAD_REQUEST);
     }
+    
+    @PostMapping("/verify-pvc")
+    public ResponseEntity verifyPayment() throws MessagingException{
+        emailService.sendEmail(new EmailValuesDTO(mailFrom,"ipn-url confirmed","ok.")
+             ,url);
+        return new ResponseEntity("Ok.", HttpStatus.BAD_REQUEST);
+    }
+    
+        public String getRemoteContents(String url) throws Exception {
+    URL urlObject = new URL(url);
+    URLConnection conn = urlObject.openConnection();
+    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    String inputLine, output = "";
+    while ((inputLine = in.readLine()) != null) {
+         output += inputLine;
+    }   
+    in.close();
+        
+    return output;
+}
 }

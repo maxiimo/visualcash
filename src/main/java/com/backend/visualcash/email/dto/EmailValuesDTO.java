@@ -1,8 +1,7 @@
 package com.backend.visualcash.email.dto;
 
 public class EmailValuesDTO {
-
-    private String mailFrom;    
+ 
     private String mailTo;
     private String subject;
     private String content;
@@ -10,15 +9,10 @@ public class EmailValuesDTO {
     public EmailValuesDTO() {
     }
 
-    public EmailValuesDTO(String mailFrom, String mailTo, String subject, String content) {
-        this.mailFrom = mailFrom;
+    public EmailValuesDTO(String mailTo, String subject, String content) {
         this.mailTo = mailTo;
         this.subject = subject;
         this.content = content;
-    }
-
-    public String getMailFrom() {
-        return mailFrom;
     }
 
     public String getMailTo() {

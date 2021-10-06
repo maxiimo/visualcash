@@ -30,11 +30,7 @@ public class Payments {
     
     @NotNull
     @Column(nullable = false, length = 255)
-    private String producto;
-    
-    @NotNull
-    @Column(nullable = false, length = 255)
-    private String from_currency;
+    private String from_currency = "USD";
     
     @NotNull
     @Column(nullable = false, length = 255)
@@ -42,11 +38,11 @@ public class Payments {
     
     @NotNull
     @Column(nullable = false)
-    private int entered_amount;  
+    private Double entered_amount;  
     
     @NotNull
     @Column(nullable = false)
-    private int amount; 
+    private Double amount; 
     
     @NotNull
     @Column(nullable = false, length = 255)
@@ -83,11 +79,9 @@ public class Payments {
     public Payments() {        
     }    
 
-    public Payments(@NotNull String producto, @NotNull String from_currency, @NotNull String to_currency, @NotNull int entered_amount,
-            @NotNull int amount, @NotNull String gateway_id, @NotNull String gateway_url, @NotNull String status,
+    public Payments(@NotNull String to_currency, @NotNull Double entered_amount,
+            @NotNull Double amount, @NotNull String gateway_id, @NotNull String gateway_url, @NotNull String status,
             Usuario usuario, Paquete paquete) {
-        this.producto = producto;
-        this.from_currency = from_currency;
         this.to_currency = to_currency;
         this.entered_amount = entered_amount;
         this.amount = amount;
@@ -106,14 +100,6 @@ public class Payments {
         this.id = id;
     }
 
-    public String getProducto() {
-        return producto;
-    }
-
-    public void setProducto(String producto) {
-        this.producto = producto;
-    }
-
     public String getFrom_currency() {
         return from_currency;
     }
@@ -130,19 +116,19 @@ public class Payments {
         this.to_currency = to_currency;
     }
 
-    public int getEntered_amount() {
+    public Double getEntered_amount() {
         return entered_amount;
     }
 
-    public void setEntered_amount(int entered_amount) {
+    public void setEntered_amount(Double entered_amount) {
         this.entered_amount = entered_amount;
     }
 
-    public int getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

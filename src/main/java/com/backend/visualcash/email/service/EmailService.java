@@ -12,6 +12,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class EmailService {
@@ -21,6 +22,9 @@ public class EmailService {
 
     @Autowired
     TemplateEngine templateEngine;
+    
+    @Value("${spring.mail.username}")
+    private String mailFrom; 
 
     public void sendEmail(EmailValuesDTO dto, String url) throws MessagingException {
            MimeMessage message = javaMailSender.createMimeMessage();
@@ -31,7 +35,7 @@ public class EmailService {
             model.put("content", dto.getContent());
             context.setVariables(model);
             String htmlText = templateEngine.process("email", context);
-            helper.setFrom(dto.getMailFrom());
+            helper.setFrom(mailFrom);
             helper.setTo(dto.getMailTo());
             helper.setSubject(dto.getSubject());
             helper.setText(htmlText, true);
