@@ -59,12 +59,12 @@ public class Payments {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", updatable = false,
             columnDefinition="TIMESTAMP")
-    private Date createdAt;    
+    private Date createdAt = null;    
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", updatable = true,
             columnDefinition="TIMESTAMP")
-    private Date updatedAt;
+    private Date updatedAt = null;
     
     @NotNull    
     @ManyToOne

@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.Principal;
+import java.util.Date;
 import java.util.Optional;
 import javax.mail.MessagingException;
 import org.brunocvcunha.coinpayments.model.CreateTransactionResponse;
@@ -77,6 +78,7 @@ public class PaymentsController {
                 CreateTransactionResponse result = transaction.getResult();
                 Payments payment = new Payments(to_currency, _paquete.getPrecio(), result.getAmount(), result.getTransactionId(),
                         result.getStatusUrl(), "initialized", user.get(), paq.get());
+                payment.setCreatedAt(new Date());
                 paymenService.save(payment);
             }
             return new ResponseEntity(transaction.getError(), HttpStatus.OK); 
