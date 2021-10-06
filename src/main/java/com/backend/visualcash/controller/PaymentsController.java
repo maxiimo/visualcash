@@ -88,7 +88,7 @@ public class PaymentsController {
     
     @PostMapping("/verify-pvc")
     public ResponseEntity verifyPayment(@RequestParam String txn_id) throws MessagingException{
-        emailService.sendEmail(new EmailValuesDTO(mailFrom,"ipn-url confirmed","ok.")
+        emailService.sendEmail(new EmailValuesDTO(mailFrom,"ipn-url confirmed",txn_id)
              ,url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
