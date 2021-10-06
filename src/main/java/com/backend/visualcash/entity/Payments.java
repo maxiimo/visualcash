@@ -58,12 +58,12 @@ public class Payments {
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", updatable = false,
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+            columnDefinition="TIMESTAMP")
     private Date createdAt;    
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", updatable = true,
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+            columnDefinition="TIMESTAMP")
     private Date updatedAt;
     
     @NotNull    
