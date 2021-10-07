@@ -16,6 +16,7 @@ import com.backend.visualcash.security.service.UsuarioService;
 import com.backend.visualcash.service.PaquetesVisualcashService;
 import com.backend.visualcash.service.PaymenService;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -24,6 +25,7 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.Optional;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import org.brunocvcunha.coinpayments.model.CreateTransactionResponse;
 import org.brunocvcunha.coinpayments.model.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,13 +58,13 @@ public class PaymentsController {
 
     @Autowired
     EmailService emailService;
-    
+
     @Value("${spring.mail.username}")
     private String mailFrom;
-    
+
     @Value("${url}")
     private String url;
-    
+
     @PostMapping("/paquete-visualcash")
     public ResponseEntity<String> buyPaquete(@RequestParam String paquete, @RequestParam String to_currency, Principal principal) throws IOException {
         if (!pvcs.existsByNombre(paquete)) {
@@ -82,32 +84,27 @@ public class PaymentsController {
                 payment.setCreatedAt(new Date());
                 paymenService.save(payment);
             }
-            return new ResponseEntity(transaction.getError(), HttpStatus.OK); 
+            return new ResponseEntity(transaction.getError(), HttpStatus.OK);
         }
         return new ResponseEntity("Ha ocurrido un error.", HttpStatus.BAD_REQUEST);
     }
-    
+
     @PostMapping("/verify-pvc")
     public ResponseEntity verifyPayment(@RequestParam String txn_id,
             @RequestParam String status, @RequestParam String amount1,
             @RequestParam Double amount2, @RequestParam String currency1,
             @RequestParam String currency2, @RequestParam String ipn_mode,
-            @RequestHeader("HMAC") String hmac) throws MessagingException{
-        emailService.sendEmail(new EmailValuesDTO(mailFrom,"ipn-url confirmed",txn_id+", "+status+", "+amount1+
-        ", "+amount2+", "+currency1+", "+currency2+", "+ipn_mode+", "+hmac),url);
+            @RequestHeader("HMAC") String hmac, HttpServletRequest request) throws MessagingException, IOException {
+        if (!ipn_mode.equals("hmac")) {
+            return new ResponseEntity("IPN Mode is not HMAC.", HttpStatus.BAD_REQUEST);
+        }
+        if (hmac.isEmpty()) {
+            return new ResponseEntity("No HMAC Signature Sent.", HttpStatus.BAD_REQUEST);
+        }
+        emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+request.getInputStream()), url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
+
     
-        public String getRemoteContents(String url) throws Exception {
-    URL urlObject = new URL(url);
-    URLConnection conn = urlObject.openConnection();
-    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-    String inputLine, output = "";
-    while ((inputLine = in.readLine()) != null) {
-         output += inputLine;
-    }   
-    in.close();
-        
-    return output;
-}
 }
