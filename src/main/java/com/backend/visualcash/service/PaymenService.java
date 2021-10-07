@@ -5,10 +5,8 @@
  */
 package com.backend.visualcash.service;
 
-import com.backend.visualcash.entity.Paquete;
 import com.backend.visualcash.entity.Payments;
 import com.backend.visualcash.repository.PaymentRepository;
-import com.backend.visualcash.security.entity.Usuario;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

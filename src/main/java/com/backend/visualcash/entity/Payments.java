@@ -45,8 +45,8 @@ public class Payments {
     private Double amount; 
     
     @NotNull
-    @Column(nullable = false, length = 255)
-    private String gateway_id;   
+    @Column(name = "gateway_id", nullable = false, length = 255)
+    private String gatewayId;   
     
     @NotNull
     @Column(nullable = false, length = 255)
@@ -80,12 +80,12 @@ public class Payments {
     }    
 
     public Payments(@NotNull String to_currency, @NotNull Double entered_amount,
-            @NotNull Double amount, @NotNull String gateway_id, @NotNull String gateway_url, @NotNull String status,
+            @NotNull Double amount, @NotNull String gatewayId, @NotNull String gateway_url, @NotNull String status,
             Usuario usuario, Paquete paquete) {
         this.to_currency = to_currency;
         this.entered_amount = entered_amount;
         this.amount = amount;
-        this.gateway_id = gateway_id;
+        this.gatewayId = gatewayId;
         this.gateway_url = gateway_url;
         this.status = status;
         this.usuario = usuario;
@@ -133,11 +133,11 @@ public class Payments {
     }
 
     public String getGateway_id() {
-        return gateway_id;
+        return gatewayId;
     }
 
-    public void setGateway_id(String gateway_id) {
-        this.gateway_id = gateway_id;
+    public void setGateway_id(String gatewayId) {
+        this.gatewayId = gatewayId;
     }
 
     public String getGateway_url() {
