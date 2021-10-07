@@ -114,6 +114,9 @@ public class PaymentsController {
       while((str = reader.readLine())!= null){
          sb.append(str);
       }
+      System.out.println("-------------------------------");
+      System.out.println(sb.toString());
+      System.out.println("-------------------------------");
       return(sb.toString());
    }
 }
