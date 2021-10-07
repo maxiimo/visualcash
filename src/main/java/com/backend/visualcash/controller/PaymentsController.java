@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Optional;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +93,7 @@ public class PaymentsController {
             @RequestParam String status, @RequestParam String amount1,
             @RequestParam Double amount2, @RequestParam String currency1,
             @RequestParam String currency2, @RequestParam String ipn_mode,
-            @RequestHeader("HMAC") String hmac, HttpServletRequest request) throws MessagingException, IOException {
+            @RequestHeader("HMAC") String hmac, HttpServletRequest request) throws MessagingException, IOException, Exception {
         if (!ipn_mode.equals("hmac")) {
             return new ResponseEntity("IPN Mode is not HMAC.", HttpStatus.BAD_REQUEST);
         }
@@ -99,19 +101,21 @@ public class PaymentsController {
             return new ResponseEntity("No HMAC Signature Sent.", HttpStatus.BAD_REQUEST);
         }
         emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+request.getRequestURL().toString()), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)), url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
-    }     
-    public String getRemoteContents(String url) throws Exception {
-    URL urlObject = new URL(url);
-    URLConnection conn = urlObject.openConnection();
-    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-    String inputLine, output = "";
-    while ((inputLine = in.readLine()) != null) {
-         output += inputLine;
-    }   
-    in.close();
-        
-    return output;
-}
+    }
+
+    public String inputStreamToString(HttpServletRequest request) throws Exception {
+        Enumeration en = request.getParameterNames();
+        String str = "";
+        while (en.hasMoreElements()) {
+            String paramName = (String) en.nextElement();
+            String paramValue = request.getParameter(paramName);
+            str = str + "&" + paramName + "=" + URLEncoder.encode(paramValue);
+        }
+        if (str.length() > 0) {
+            str = str.substring(1);
+        }
+        return str;
+    }
 }
