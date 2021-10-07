@@ -15,11 +15,10 @@ import com.backend.visualcash.security.service.UsuarioService;
 import com.backend.visualcash.service.PaquetesVisualcashService;
 import com.backend.visualcash.service.PaymenService;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Optional;
@@ -100,23 +99,19 @@ public class PaymentsController {
             return new ResponseEntity("No HMAC Signature Sent.", HttpStatus.BAD_REQUEST);
         }
         emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+request.getPathInfo()), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+request.getRequestURL().toString()), url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
-    }
-
-     private String fileToString(String filename) throws IOException
-{
-    BufferedReader reader = new BufferedReader(new FileReader(filename));
-    StringBuilder builder = new StringBuilder();
-    String line;    
-
-    // For every line in the file, append it to the string builder
-    while((line = reader.readLine()) != null)
-    {
-        builder.append(line);
-    }
-
-    reader.close();
-    return builder.toString();
+    }     
+    public String getRemoteContents(String url) throws Exception {
+    URL urlObject = new URL(url);
+    URLConnection conn = urlObject.openConnection();
+    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    String inputLine, output = "";
+    while ((inputLine = in.readLine()) != null) {
+         output += inputLine;
+    }   
+    in.close();
+        
+    return output;
 }
 }
