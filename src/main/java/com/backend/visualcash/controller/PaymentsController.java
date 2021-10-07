@@ -28,7 +28,6 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-import static javax.xml.crypto.dsig.SignatureMethod.HMAC_SHA512;
 import org.brunocvcunha.coinpayments.model.CreateTransactionResponse;
 import org.brunocvcunha.coinpayments.model.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
