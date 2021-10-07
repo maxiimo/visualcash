@@ -9,6 +9,7 @@ import com.backend.visualcash.security.entity.Usuario;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,7 +73,7 @@ public class Payments {
     private Usuario usuario;
     
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_paquete", nullable=false)
     private Paquete paquete;
 
