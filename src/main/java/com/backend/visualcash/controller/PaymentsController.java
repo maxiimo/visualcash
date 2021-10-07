@@ -100,7 +100,7 @@ public class PaymentsController {
             return new ResponseEntity("No HMAC Signature Sent.", HttpStatus.BAD_REQUEST);
         }
         emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+fileToString(request.getInputStream().toString())), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+request.getPathInfo()), url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
 
