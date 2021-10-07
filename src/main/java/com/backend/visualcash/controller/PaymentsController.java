@@ -33,6 +33,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -90,9 +91,10 @@ public class PaymentsController {
     public ResponseEntity verifyPayment(@RequestParam String txn_id,
             @RequestParam String status, @RequestParam String amount1,
             @RequestParam Double amount2, @RequestParam String currency1,
-            @RequestParam String currency2) throws MessagingException{
+            @RequestParam String currency2, @RequestParam String ipn_mode,
+            @RequestHeader("HMAC") String hmac) throws MessagingException{
         emailService.sendEmail(new EmailValuesDTO(mailFrom,"ipn-url confirmed",txn_id+", "+status+", "+amount1+
-        ", "+amount2+", "+currency1+", "+currency2),url);
+        ", "+amount2+", "+currency1+", "+currency2+", "+ipn_mode+", "+hmac),url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
     
