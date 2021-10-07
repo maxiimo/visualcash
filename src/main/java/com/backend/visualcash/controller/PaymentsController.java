@@ -118,9 +118,12 @@ public class PaymentsController {
         Optional <Payments> payment = paymenService.getByTxnIdAndStatus(txn_id, "initialized");
         if(payment.isPresent()){
             res = "here1";
-            Payments dataPayment = payment.get();          
+            Payments dataPayment = payment.get(); 
+            System.out.println("-----------------------");
+            System.out.println(dataPayment.getUsuario().getUsuarioPaquete().getPaquete().getNombre());
+            System.out.println("-----------------------");
             emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+ ", " +dataPayment.getPaquete().getNombre()+ ", " +dataPayment.getUsuario().getEmail()), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+ ", " +dataPayment.getPaquete().getNombre()+ ", " +dataPayment.getUsuario().getUsuarioPaquete().getPaquete().getNombre()), url);
         
         }
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);

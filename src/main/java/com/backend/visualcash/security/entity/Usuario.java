@@ -132,11 +132,11 @@ public class Usuario {
         this.coins = coins;
     }
 
-    public UsuarioPaquete getPaquete() {
+    public UsuarioPaquete getUsuarioPaquete() {
         return usuarioPaquete;
     }
 
-    public void setPaquete(UsuarioPaquete usuarioPaquete) {
+    public void setUsuarioPaquete(UsuarioPaquete usuarioPaquete) {
         this.usuarioPaquete = usuarioPaquete;
     }
 
