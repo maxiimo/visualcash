@@ -118,20 +118,11 @@ public class PaymentsController {
         Optional <Payments> payment = paymenService.getByTxnIdAndStatus(txn_id, "initialized");
         if(payment.isPresent()){
             res = "here1";
-            Payments dataPayment = payment.get();
-            if (dataPayment.getTo_currency().equals(currency2)) {
-                res = "here2";
-                return new ResponseEntity("Currency Mismatch.", HttpStatus.BAD_REQUEST);
-            }
-            if (dataPayment.getAmount() != amount2) {
-                res = "here3";
-                return new ResponseEntity("Amount is lesser than order total.", HttpStatus.BAD_REQUEST);
-            }            
+            Payments dataPayment = payment.get();          
             emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+", "+dataPayment.getUsuario().getEmail()+", "+dataPayment.getPaquete().getNombre()), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+", "+dataPayment.getUsuario().getEmail()+", "+dataPayment.getStatus()), url);
         
         }
-        emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", res), url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
 
