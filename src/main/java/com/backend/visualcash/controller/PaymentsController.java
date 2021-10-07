@@ -6,7 +6,6 @@
 package com.backend.visualcash.controller;
 
 import com.backend.visualcash.dto.CoinpaymentsApiDto;
-import com.backend.visualcash.dto.Mensaje;
 import com.backend.visualcash.email.dto.EmailValuesDTO;
 import com.backend.visualcash.email.service.EmailService;
 import com.backend.visualcash.entity.Paquete;
@@ -16,11 +15,10 @@ import com.backend.visualcash.security.service.UsuarioService;
 import com.backend.visualcash.service.PaquetesVisualcashService;
 import com.backend.visualcash.service.PaymenService;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.Reader;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Optional;
@@ -33,7 +31,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,9 +99,21 @@ public class PaymentsController {
             return new ResponseEntity("No HMAC Signature Sent.", HttpStatus.BAD_REQUEST);
         }
         emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+request.getInputStream()), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+inputStreamToString(request.getInputStream())), url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
 
-    
+     public String inputStreamToString(InputStream inputStream) throws IOException {
+      //Creating an InputStream object
+      //creating an InputStreamReader object
+      InputStreamReader isReader = new InputStreamReader(inputStream);
+      //Creating a BufferedReader object
+      BufferedReader reader = new BufferedReader(isReader);
+      StringBuffer sb = new StringBuffer();
+      String str;
+      while((str = reader.readLine())!= null){
+         sb.append(str);
+      }
+      return(sb.toString());
+   }
 }
