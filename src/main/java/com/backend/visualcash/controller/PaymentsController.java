@@ -15,6 +15,7 @@ import com.backend.visualcash.security.service.UsuarioService;
 import com.backend.visualcash.service.PaquetesVisualcashService;
 import com.backend.visualcash.service.PaymenService;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -99,24 +100,23 @@ public class PaymentsController {
             return new ResponseEntity("No HMAC Signature Sent.", HttpStatus.BAD_REQUEST);
         }
         emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+inputStreamToString(request.getInputStream())), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac+", "+fileToString(request.getInputStream().toString())+", "+request.getInputStream().toString()), url);
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
 
-     public String inputStreamToString(InputStream inputStream) throws IOException {
-      //Creating an InputStream object
-      //creating an InputStreamReader object
-      InputStreamReader isReader = new InputStreamReader(inputStream);
-      //Creating a BufferedReader object
-      BufferedReader reader = new BufferedReader(isReader);
-      StringBuffer sb = new StringBuffer();
-      String str;
-      while((str = reader.readLine())!= null){
-         sb.append(str);
-      }
-      System.out.println("-------------------------------");
-      System.out.println(sb.toString());
-      System.out.println("-------------------------------");
-      return(sb.toString());
-   }
+     private String fileToString(String filename) throws IOException
+{
+    BufferedReader reader = new BufferedReader(new FileReader(filename));
+    StringBuilder builder = new StringBuilder();
+    String line;    
+
+    // For every line in the file, append it to the string builder
+    while((line = reader.readLine()) != null)
+    {
+        builder.append(line);
+    }
+
+    reader.close();
+    return builder.toString();
+}
 }
