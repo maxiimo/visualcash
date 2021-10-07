@@ -14,18 +14,21 @@ import com.backend.visualcash.security.entity.Usuario;
 import com.backend.visualcash.security.service.UsuarioService;
 import com.backend.visualcash.service.PaquetesVisualcashService;
 import com.backend.visualcash.service.PaymenService;
-import java.io.BufferedReader;
+import io.jsonwebtoken.SignatureException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Formatter;
 import java.util.Optional;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import static javax.xml.crypto.dsig.SignatureMethod.HMAC_SHA512;
 import org.brunocvcunha.coinpayments.model.CreateTransactionResponse;
 import org.brunocvcunha.coinpayments.model.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +67,12 @@ public class PaymentsController {
     @Value("${url}")
     private String url;
 
+    private String merchant_id = "2b6cdfe8f1df05a31b7af9928cf7f56b";
+
+    private String ipn_secret = "fvgfdft3453423ew55ret35";
+    
+    private final String HMAC_SHA512 = "HmacSHA512";
+
     @PostMapping("/paquete-visualcash")
     public ResponseEntity<String> buyPaquete(@RequestParam String paquete, @RequestParam String to_currency, Principal principal) throws IOException {
         if (!pvcs.existsByNombre(paquete)) {
@@ -93,12 +102,18 @@ public class PaymentsController {
             @RequestParam String status, @RequestParam String amount1,
             @RequestParam Double amount2, @RequestParam String currency1,
             @RequestParam String currency2, @RequestParam String ipn_mode,
-            @RequestHeader("HMAC") String hmac, HttpServletRequest request) throws MessagingException, IOException, Exception {
+            @RequestParam String merchant, @RequestHeader("HMAC") String hmac, HttpServletRequest request) throws MessagingException, IOException, Exception {
         if (!ipn_mode.equals("hmac")) {
             return new ResponseEntity("IPN Mode is not HMAC.", HttpStatus.BAD_REQUEST);
         }
         if (hmac.isEmpty()) {
             return new ResponseEntity("No HMAC Signature Sent.", HttpStatus.BAD_REQUEST);
+        }
+        if (merchant.isEmpty() || !merchant.equals(this.merchant_id.trim())) {
+            return new ResponseEntity("No or incorrect merchant id.", HttpStatus.BAD_REQUEST);
+        }
+        if (!calculateHMAC(inputStreamToString(request), ipn_secret).equals(hmac)) {
+            return new ResponseEntity("HMAC signature does not match.", HttpStatus.BAD_REQUEST);
         }
         emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
                 + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)), url);
@@ -117,5 +132,21 @@ public class PaymentsController {
             str = str.substring(1);
         }
         return str;
+    }
+
+    public String calculateHMAC(String data, String key)
+            throws SignatureException, NoSuchAlgorithmException, InvalidKeyException {
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), HMAC_SHA512);
+        Mac mac = Mac.getInstance(HMAC_SHA512);
+        mac.init(secretKeySpec);
+        return toHexString(mac.doFinal(data.getBytes()));
+    }
+
+    private String toHexString(byte[] bytes) {
+        Formatter formatter = new Formatter();
+        for (byte b : bytes) {
+            formatter.format("%02x", b);
+        }
+        return formatter.toString();
     }
 }
