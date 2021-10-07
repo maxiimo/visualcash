@@ -5,9 +5,7 @@
  */
 package com.backend.visualcash.repository;
 
-import com.backend.visualcash.entity.Paquete;
 import com.backend.visualcash.entity.Payments;
-import com.backend.visualcash.security.entity.Usuario;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,6 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payments, Integer>{
 
-    public Optional<Paquete> findByUsuario(Usuario usuario);
+    public Optional<Payments> findByTxnIdAndStatus(String txn_id, String status);
     
 }

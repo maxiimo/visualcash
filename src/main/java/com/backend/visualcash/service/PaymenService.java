@@ -9,7 +9,6 @@ import com.backend.visualcash.entity.Paquete;
 import com.backend.visualcash.entity.Payments;
 import com.backend.visualcash.repository.PaymentRepository;
 import com.backend.visualcash.security.entity.Usuario;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +25,8 @@ public class PaymenService {
     @Autowired
     PaymentRepository paymentRepository;
 
-    public Optional<Paquete> getOne(Usuario usuario){
-        return paymentRepository.findByUsuario(usuario);
+    public Optional<Payments>getByTxnIdAndStatus(String txn_id, String status){
+        return paymentRepository.findByTxnIdAndStatus(txn_id, status);
     }
 
     public void  save(Payments payment){

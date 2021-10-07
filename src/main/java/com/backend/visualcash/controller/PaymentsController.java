@@ -115,8 +115,19 @@ public class PaymentsController {
         if (!calculateHMAC(inputStreamToString(request), ipn_secret).equals(hmac)) {
             return new ResponseEntity("HMAC signature does not match.", HttpStatus.BAD_REQUEST);
         }
-        emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)), url);
+        Optional <Payments> payment = paymenService.getByTxnIdAndStatus(txn_id, "initialized");
+        if(payment.isPresent()){
+            Payments dataPayment = payment.get();
+            if (dataPayment.getTo_currency().equals(currency2)) {
+                return new ResponseEntity("Currency Mismatch.", HttpStatus.BAD_REQUEST);
+            }
+            if (dataPayment.getAmount() != amount2) {
+                return new ResponseEntity("Amount is lesser than order total.", HttpStatus.BAD_REQUEST);
+            }            
+            emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+", "+dataPayment.getUsuario().getEmail()+", "+dataPayment.getPaquete().getNombre()), url);
+        
+        }
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
 
@@ -126,7 +137,7 @@ public class PaymentsController {
         while (en.hasMoreElements()) {
             String paramName = (String) en.nextElement();
             String paramValue = request.getParameter(paramName);
-            str = str + "&" + paramName + "=" + URLEncoder.encode(paramValue);
+            str = str + "&" + paramName + "=" + URLEncoder.encode(paramValue,java.nio.charset.StandardCharsets.UTF_8.toString());
         }
         if (str.length() > 0) {
             str = str.substring(1);
