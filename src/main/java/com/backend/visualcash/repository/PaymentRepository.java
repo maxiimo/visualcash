@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payments, Integer>{
 
-    public Optional<Payments> findByTxnIdAndStatus(String txn_id, String status);
+    public Optional<Payments> findByGatewayIdAndStatus(String txn_id, String status);
     
 }
