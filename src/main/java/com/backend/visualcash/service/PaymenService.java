@@ -26,7 +26,7 @@ public class PaymenService {
     PaymentRepository paymentRepository;
 
     public Optional<Payments>getByTxnIdAndStatus(String txn_id, String status){
-        return paymentRepository.findByTxnIdAndStatus(txn_id, status);
+        return paymentRepository.findByGatewayIdAndStatus(txn_id, status);
     }
 
     public void  save(Payments payment){
