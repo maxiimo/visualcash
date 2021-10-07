@@ -120,7 +120,7 @@ public class PaymentsController {
             res = "here1";
             Payments dataPayment = payment.get();          
             emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
-                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+", "+dataPayment.getUsuario().getEmail()+", "+dataPayment.getStatus()), url);
+                + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+ ", " +dataPayment.getStatus()), url);
         
         }
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
