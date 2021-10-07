@@ -68,7 +68,7 @@ public class Payments {
     private Date updatedAt = null;
     
     @NotNull    
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_user", nullable=false)
     private Usuario usuario;
     
