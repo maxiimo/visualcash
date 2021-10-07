@@ -88,8 +88,8 @@ public class PaymentsController {
     
     @PostMapping("/verify-pvc")
     public ResponseEntity verifyPayment(@RequestParam String txn_id,
-            @RequestParam String status, @RequestParam Double amount1,
-            @RequestParam Double amount2, @RequestParam Double currency1,
+            @RequestParam String status, @RequestParam String amount1,
+            @RequestParam Double amount2, @RequestParam String currency1,
             @RequestParam String currency2) throws MessagingException{
         emailService.sendEmail(new EmailValuesDTO(mailFrom,"ipn-url confirmed",txn_id+", "+status+", "+amount1+
         ", "+amount2+", "+currency1+", "+currency2),url);
