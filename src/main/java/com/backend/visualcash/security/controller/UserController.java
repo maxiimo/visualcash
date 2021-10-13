@@ -5,7 +5,7 @@
  */
 package com.backend.visualcash.security.controller;
 
-import com.backend.visualcash.security.dto.UserInfo;
+import com.backend.visualcash.dto.UserInfo;
 import com.backend.visualcash.security.jwt.JwtProvider;
 import com.backend.visualcash.security.service.UsuarioService;
 import java.security.Principal;

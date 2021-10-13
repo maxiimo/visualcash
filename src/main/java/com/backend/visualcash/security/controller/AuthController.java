@@ -101,10 +101,10 @@ public class AuthController {
             roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());*/
         usuario.setRoles(roles);
         usuarioService.save(usuario);
-        String Url = getSiteURL(request)+"/auth/verify?code="+usuario.getVerificationCode();
+        /*String Url = getSiteURL(request)+"/auth/verify?code="+usuario.getVerificationCode();
         EmailValuesDTO dto = new EmailValuesDTO(emailUser,"ACTIVACION DE CUENTA","Haz click <a href='"+Url+"'>aquí</a> para activar tu cuenta.<br><br>Si no se realiza la confirmación del correo durante las próximas 24 horas el registro será eliminado.");
         emailService.sendEmail(dto
-                ,Url);
+                ,Url);*/
         return new ResponseEntity(new Mensaje("Se ha enviado un correo de confirmación al correo electrónico <b>"+emailUser+"</b>."), HttpStatus.CREATED);
     }
     

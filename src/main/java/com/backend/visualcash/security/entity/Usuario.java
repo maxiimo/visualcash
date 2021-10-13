@@ -1,7 +1,10 @@
 package com.backend.visualcash.security.entity;
 
+import com.backend.visualcash.entity.PagoReferidoPrimerNivel;
 import com.backend.visualcash.entity.Payments;
+import com.backend.visualcash.entity.UsuarioNotificacion;
 import com.backend.visualcash.entity.UsuarioPaquete;
+import com.backend.visualcash.entity.UsuarioReferPlus;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -32,16 +35,31 @@ public class Usuario {
     private double coins;
     
     @NotNull
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_rol", joinColumns = @JoinColumn(name = "id_user"),
     inverseJoinColumns = @JoinColumn(name = "id_rol"))
     private Set<Rol> roles = new HashSet<>();
+    
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private UsuarioReferPlus usuarioReferPlus;
+    
+    @OneToOne(mappedBy = "usuarioreferido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private UsuarioReferPlus usuarioReferReferPlus;
     
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private UsuarioPaquete usuarioPaquete;
 
     @OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Payments> payment;
+    
+    @OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PagoReferidoPrimerNivel> usuarioPagoReferidoPrimerNivel;
+     
+    @OneToMany(mappedBy="usuarioReferido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PagoReferidoPrimerNivel> usuarioReferidoPagoReferidoPrimerNivel;
+    
+    @OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UsuarioNotificacion> usuarioNotificacion;
     
     @NotNull
     @Column(nullable = false, length = 14)
@@ -132,6 +150,22 @@ public class Usuario {
         this.coins = coins;
     }
 
+    public UsuarioReferPlus getUsuarioReferPlus() {
+        return usuarioReferPlus;
+    }
+
+    public void setUsuarioReferPlus(UsuarioReferPlus usuarioReferPlus) {
+        this.usuarioReferPlus = usuarioReferPlus;
+    }
+
+    public UsuarioReferPlus getUsuarioReferReferPlus() {
+        return usuarioReferReferPlus;
+    }
+
+    public void setUsuarioReferReferPlus(UsuarioReferPlus usuarioReferReferPlus) {
+        this.usuarioReferReferPlus = usuarioReferReferPlus;
+    }
+
     public UsuarioPaquete getUsuarioPaquete() {
         return usuarioPaquete;
     }
@@ -163,4 +197,29 @@ public class Usuario {
     public void setRefer_code_refer(int refer_code_refer) {
         this.refer_code_refer = refer_code_refer;
     }    
+
+    public Set<PagoReferidoPrimerNivel> getUsuarioPagoReferidoPrimerNivel() {
+        return usuarioPagoReferidoPrimerNivel;
+    }
+
+    public void setUsuarioPagoReferidoPrimerNivel(Set<PagoReferidoPrimerNivel> usuarioPagoReferidoPrimerNivel) {
+        this.usuarioPagoReferidoPrimerNivel = usuarioPagoReferidoPrimerNivel;
+    }
+
+    public Set<PagoReferidoPrimerNivel> getUsuarioReferidoPagoReferidoPrimerNivel() {
+        return usuarioReferidoPagoReferidoPrimerNivel;
+    }
+
+    public void setUsuarioReferidoPagoReferidoPrimerNivel(Set<PagoReferidoPrimerNivel> usuarioReferidoPagoReferidoPrimerNivel) {
+        this.usuarioReferidoPagoReferidoPrimerNivel = usuarioReferidoPagoReferidoPrimerNivel;
+    }
+
+    public Set<UsuarioNotificacion> getUsuarioNotificacion() {
+        return usuarioNotificacion;
+    }
+
+    public void setUsuarioNotificacion(Set<UsuarioNotificacion> usuarioNotificacion) {
+        this.usuarioNotificacion = usuarioNotificacion;
+    }
+    
 }

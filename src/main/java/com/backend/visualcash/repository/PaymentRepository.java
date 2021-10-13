@@ -5,9 +5,10 @@
  */
 package com.backend.visualcash.repository;
 
+import com.backend.visualcash.dto.ResponsePayment;
 import com.backend.visualcash.entity.Payments;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PaymentRepository extends JpaRepository<Payments, Integer>{
-
-    public Optional<Payments> findByGatewayIdAndStatus(String txn_id, String status);
-    
+    @Query(value = "validePaymentPaqueteVC(:txn_id, :status);", nativeQuery = true)
+    public ResponsePayment validePaymentPaqueteVC(String txn_id, String status);    
 }

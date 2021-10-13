@@ -10,6 +10,7 @@ import com.backend.visualcash.email.dto.EmailValuesDTO;
 import com.backend.visualcash.email.service.EmailService;
 import com.backend.visualcash.entity.Paquete;
 import com.backend.visualcash.entity.Payments;
+import com.backend.visualcash.entity.UsuarioReferPlus;
 import com.backend.visualcash.security.entity.Usuario;
 import com.backend.visualcash.security.service.UsuarioService;
 import com.backend.visualcash.service.PaquetesVisualcashService;
@@ -76,27 +77,27 @@ public class PaymentsController {
     public ResponseEntity<String> buyPaquete(@RequestParam String paquete, @RequestParam String to_currency, Principal principal) throws IOException {
         if (!pvcs.existsByNombre(paquete)) {
             pvcs.save(new Paquete(paquete, "PAQUETE VISUAL circular32 MORADO-01.png", "30 USD EN INVERSION/2  USD EN COINS/15 VISUALIZACIONES DIARIAS/PAGO DIARIO 0.78 USD/DIAS HABILES DE LUNES A VIERNES",
-                    32.00, 20, 0.75, 15));
+                    32, 20, 0.75, 15));
         }
         Optional<Paquete> paq = pvcs.getByNombre(paquete);
         Optional<Usuario> user = usuarioService.getByEmail(principal.getName());
         if (paq.isPresent() && user.isPresent()) {
             Paquete _paquete = paq.get();
             ResponseWrapper<CreateTransactionResponse> transaction
-                    = new CoinpaymentsApiDto().createTransaction(to_currency, user.get().getEmail(), paq.get().getPrecio());
+                    = new CoinpaymentsApiDto().createTransaction(to_currency, user.get().getEmail(), (double) paq.get().getPrecio());
             if ("ok".equals(transaction.getError())) {
                 CreateTransactionResponse result = transaction.getResult();
-                Payments payment = new Payments(to_currency, _paquete.getPrecio(), result.getAmount(), result.getTransactionId(),
+                Payments payment = new Payments(to_currency, (double)_paquete.getPrecio(), result.getAmount(), result.getTransactionId(),
                         result.getStatusUrl(), "initialized", user.get(), paq.get());
                 payment.setCreatedAt(new Date());
-                paymenService.save(payment);
+                paymenService.save(payment); 
             }
             return new ResponseEntity(transaction.getError(), HttpStatus.OK);
         }
-        return new ResponseEntity("Ha ocurrido un error.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity("Ha ocurrido un error.", HttpStatus.BAD_REQUEST); 
     }
 
-    @PostMapping("/verify-pvc")
+    /*@PostMapping("/verify-pvc")
     public ResponseEntity verifyPayment(@RequestParam String txn_id,
             @RequestParam String status, @RequestParam String amount1,
             @RequestParam Double amount2, @RequestParam String currency1,
@@ -120,7 +121,7 @@ public class PaymentsController {
             res = "here1";
             Payments dataPayment = payment.get(); 
             System.out.println("-----------------------");
-            System.out.println(dataPayment.getUsuario().getUsuarioPaquete().getPaquete().getNombre());
+            System.out.println(dataPayment.getUsuario().getUsuarioPaquete().getPaquete());
             System.out.println("-----------------------");
             emailService.sendEmail(new EmailValuesDTO(mailFrom, "ipn-url confirmed", txn_id + ", " + status + ", " + amount1
                 + ", " + amount2 + ", " + currency1 + ", " + currency2 + ", " + ipn_mode + ", " + hmac + ", " + inputStreamToString(request)+ ", " +dataPayment.getPaquete().getNombre()+ ", " +dataPayment.getUsuario().getUsuarioPaquete().getPaquete().getNombre()), url);
@@ -129,6 +130,23 @@ public class PaymentsController {
         return new ResponseEntity(txn_id, HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping("/test")
+    public ResponseEntity Test() throws MessagingException, IOException, Exception {
+        String res = "here";
+        String msg = paymenService.validePaymentPaqueteVC("CPFJ48R2E4SSBHRU6YEXCVSUWA", "initialized");
+        if(payment.isPresent()){
+            Payments dataPayment = payment.get(); 
+            Usuario usuario = dataPayment.getUsuario();
+            Paquete paquete = dataPayment.getPaquete();
+            UsuarioReferPlus usuarioReferPlus = usuario.getUsuarioReferPlus();
+            if(usuarioReferPlus != null){
+                if(usuarioReferPlus.getPlus() >= paquete.getPago_diario()*50){
+                    
+                }
+            }
+        }
+        return new ResponseEntity("ok", HttpStatus.BAD_REQUEST);
+    }*/
     public String inputStreamToString(HttpServletRequest request) throws Exception {
         Enumeration en = request.getParameterNames();
         String str = "";

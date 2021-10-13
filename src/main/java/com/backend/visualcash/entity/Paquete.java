@@ -30,18 +30,18 @@ public class Paquete {
     
     @NotNull
     @Column(nullable = false)
-    private Double precio;
+    private int precio;
     
     @NotNull
     @Column(nullable = false)
     private int coins;
     
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "decimal(10,2)")
     private Double pago_diario;
     
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "tinyint(2)")
     private int n_anuncios;
     
     @Column(nullable = false)
@@ -56,7 +56,7 @@ public class Paquete {
     public Paquete() {
     }
 
-    public Paquete(String nombre, String imagen, String descripcion, Double precio, int coins, Double pago_diario, int n_anuncios) {
+    public Paquete(String nombre, String imagen, String descripcion, int precio, int coins, Double pago_diario, int n_anuncios) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.descripcion = descripcion;
@@ -66,7 +66,7 @@ public class Paquete {
         this.n_anuncios = n_anuncios;
     }
     
-    public Paquete(String nombre, String imagen, String descripcion, Double precio, int coins, Double pago_diario, int n_anuncios, boolean active) {
+    public Paquete(String nombre, String imagen, String descripcion, int precio, int coins, Double pago_diario, int n_anuncios, boolean active) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.descripcion = descripcion;
@@ -109,11 +109,11 @@ public class Paquete {
         this.descripcion = descripcion;
     }
 
-    public Double getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 

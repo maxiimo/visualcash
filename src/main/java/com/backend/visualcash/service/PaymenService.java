@@ -5,6 +5,7 @@
  */
 package com.backend.visualcash.service;
 
+import com.backend.visualcash.dto.ResponsePayment;
 import com.backend.visualcash.entity.Payments;
 import com.backend.visualcash.repository.PaymentRepository;
 import java.util.Optional;
@@ -23,8 +24,8 @@ public class PaymenService {
     @Autowired
     PaymentRepository paymentRepository;
 
-    public Optional<Payments>getByTxnIdAndStatus(String txn_id, String status){
-        return paymentRepository.findByGatewayIdAndStatus(txn_id, status);
+    public ResponsePayment validePaymentPaqueteVC(String txn_id, String status){
+        return paymentRepository.validePaymentPaqueteVC(txn_id, status);
     }
 
     public void  save(Payments payment){

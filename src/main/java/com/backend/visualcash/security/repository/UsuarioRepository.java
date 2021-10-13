@@ -1,6 +1,6 @@
 package com.backend.visualcash.security.repository;
 
-import com.backend.visualcash.security.dto.UserInfo;
+import com.backend.visualcash.dto.UserInfo;
 import com.backend.visualcash.security.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

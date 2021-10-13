@@ -7,6 +7,7 @@ package com.backend.visualcash.entity;
 
 import com.backend.visualcash.security.entity.Usuario;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,7 +39,7 @@ public class Payments {
     private String to_currency;
     
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "decimal(10,2)")
     private Double entered_amount;  
     
     @NotNull
@@ -55,25 +56,25 @@ public class Payments {
     
     @NotNull
     @Column(nullable = false, length = 255)
-    private String status;    
+    private String status;        
+    
+    
+    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt = null; 
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", updatable = false,
-            columnDefinition="TIMESTAMP")
-    private Date createdAt = null;    
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", updatable = true,
-            columnDefinition="TIMESTAMP")
-    private Date updatedAt = null;
+    @Column(name = "created_at", 
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date createdAt = new Date();
     
     @NotNull    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_user", nullable=false)
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name="id_usuario", nullable=false)
     private Usuario usuario;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name="id_paquete", nullable=false)
     private Paquete paquete;
 
@@ -82,7 +83,7 @@ public class Payments {
 
     public Payments(@NotNull String to_currency, @NotNull Double entered_amount,
             @NotNull Double amount, @NotNull String gatewayId, @NotNull String gateway_url, @NotNull String status,
-            Usuario usuario, Paquete paquete) {
+            @NotNull Usuario usuario, @NotNull Paquete paquete) {
         this.to_currency = to_currency;
         this.entered_amount = entered_amount;
         this.amount = amount;

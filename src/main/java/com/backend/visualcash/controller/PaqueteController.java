@@ -20,8 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -49,8 +51,13 @@ logger.error("Account: " + accountInfo.getResult());
 return new ResponseEntity(accountInfo.getResult(), HttpStatus.OK);*/
         if(!pvcs.existsByNombre("Visual 32")){
             pvcs.save(new Paquete("Visual 32", "PAQUETE VISUAL circular32 MORADO-01.png", "30 USD EN INVERSION/2  USD EN COINS/15 VISUALIZACIONES DIARIAS/PAGO DIARIO 0.78 USD/DIAS HABILES DE LUNES A VIERNES",
-                    32.00, 20, 0.75, 15));
+                    32, 20, 0.75, 15));
         }
         return new ResponseEntity(pvcs.list(), HttpStatus.OK);
+    }
+    @DeleteMapping()
+    public ResponseEntity delete(@RequestParam int id){
+        pvcs.delete(id);
+        return new ResponseEntity("ok",  HttpStatus.OK);
     }
 }

@@ -1,6 +1,6 @@
 package com.backend.visualcash.security.service;
 
-import com.backend.visualcash.security.dto.UserInfo;
+import com.backend.visualcash.dto.UserInfo;
 import com.backend.visualcash.security.entity.Usuario;
 import com.backend.visualcash.security.repository.UsuarioRepository;
 import java.io.UnsupportedEncodingException;
