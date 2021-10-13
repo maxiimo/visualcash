@@ -47,10 +47,11 @@ public class Paquete {
     @Column(nullable = false)
     private boolean active = true;    
     
-    @OneToMany(mappedBy = "paquete", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "paquete", cascade = CascadeType.ALL, fetch = Fetchtype.LAZY, orphanRemoval = true)
     private Set<UsuarioPaquete> usuarioPaquete;
     
-    @OneToMany(mappedBy="paquete", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="paquete", cascade = CascadeType.ALL, 
+fetch = Fetchtype.LAZY, orphanRemoval = true)
     private Set<Payments> payment;
 
     public Paquete() {
