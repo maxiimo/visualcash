@@ -53,7 +53,7 @@ public class Paquete {
     @OneToMany(mappedBy="paquete", cascade = CascadeType.ALL, 
 fetch = Fetchtype.LAZY, orphanRemoval = true)
     private Set<Payments> payment;
-
+ 
     public Paquete() {
     }
 
