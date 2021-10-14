@@ -5,8 +5,10 @@
  */
 package com.backend.visualcash.controller;
 
+import com.backend.visualcash.dto.PaqueteVisualcashDTO;
 import com.backend.visualcash.entity.Paquete;
 import com.backend.visualcash.service.PaquetesVisualcashService;
+import com.backend.visualcash.util.ObjectMapperUtils;
 import java.io.IOException;
 import java.util.List;
 import org.apache.http.impl.client.HttpClients;
@@ -53,7 +55,15 @@ return new ResponseEntity(accountInfo.getResult(), HttpStatus.OK);*/
             pvcs.save(new Paquete("Visual 32", "PAQUETE VISUAL circular32 MORADO-01.png", "30 USD EN INVERSION/2  USD EN COINS/15 VISUALIZACIONES DIARIAS/PAGO DIARIO 0.78 USD/DIAS HABILES DE LUNES A VIERNES",
                     32, 20, 0.75, 15));
         }
-        return new ResponseEntity(pvcs.list(), HttpStatus.OK);
+        List<Paquete> list = pvcs.list();
+
+        List<PaqueteVisualcashDTO> listPaqueteVisualcashDTO = ObjectMapperUtils.mapAll(list, PaqueteVisualcashDTO.class);
+        return new ResponseEntity(listPaqueteVisualcashDTO, HttpStatus.OK);
+    }
+    @GetMapping
+    public ResponseEntity getOne(@RequestParam int id){
+        
+        return new ResponseEntity(pvcs.getOne(id),  HttpStatus.OK);
     }
     @DeleteMapping()
     public ResponseEntity delete(@RequestParam int id){

@@ -44,17 +44,17 @@ public class Paquete {
     @Column(nullable = false, columnDefinition = "tinyint(2)")
     private int n_anuncios;
     
-    @Column(nullable = false)
+    @Column(nullable = false) 
     private boolean active = true;    
     
-    @OneToMany(mappedBy = "paquete", cascade = CascadeType.ALL, fetch = Fetchtype.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "paquete"/*, cascade = CascadeType.ALL, orphanRemoval = true*/)
     private Set<UsuarioPaquete> usuarioPaquete;
     
-    @OneToMany(mappedBy="paquete", cascade = CascadeType.ALL, 
-fetch = Fetchtype.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy="paquete"/*, cascade = CascadeType.ALL, orphanRemoval = true*/)
     private Set<Payments> payment;
  
     public Paquete() {
+        
     }
 
     public Paquete(String nombre, String imagen, String descripcion, int precio, int coins, Double pago_diario, int n_anuncios) {

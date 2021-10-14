@@ -9,9 +9,9 @@ C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\Paquete.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\security\repository\UsuarioRepository.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\security\jwt\JwtTokenFilter.java
+C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\TransaccionError.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\dto\CoinpaymentsApiDto.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\dto\Mensaje.java
-C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\dto\ProductoDto.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\UsuarioNotificacion.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\UsuarioPaquete.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\security\entity\Rol.java
@@ -24,7 +24,6 @@ C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\service\PaquetesVisualcashService.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\Payments.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\security\MainSecurity.java
-C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\PagoReferidoSegundoNivel.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\UsuarioReferPlus.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\util\CreateRoles.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\security\controller\AuthController.java
@@ -32,6 +31,8 @@ C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\email\dto\EmailValuesDTO.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\security\controller\UserController.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\security\jwt\JwtProvider.java
+C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\util\ObjectMapperUtils.java
+C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\dto\PaqueteVisualcashDTO.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\email\service\EmailService.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\PagoReferidoCuartoNivel.java
 C:\Users\Fabian\Downloads\tutorial_jwt_BACK-master\visualcash\src\main\java\com\backend\visualcash\entity\PagoReferidoPrimerNivel.java

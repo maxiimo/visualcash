@@ -45,6 +45,9 @@ public class UsuarioService {
         save(usuario);        
         sendVerificationEmail(usuario, siteURL);
     }
+    public void deleteById(int id){
+        usuarioRepository.deleteById(id);
+    }
 
     public boolean verify(String verificationCode) {
     Usuario usuario = usuarioRepository.findByVerificationCode(verificationCode);

@@ -69,12 +69,12 @@ public class Payments {
     private Date createdAt = new Date();
     
     @NotNull    
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_usuario", nullable=false)
     private Usuario usuario;
     
     @NotNull
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_paquete", nullable=false)
     private Paquete paquete;
 

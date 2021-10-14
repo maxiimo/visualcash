@@ -54,7 +54,7 @@ public class Usuario {
     
     @OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PagoReferidoPrimerNivel> usuarioPagoReferidoPrimerNivel;
-     
+    
     @OneToMany(mappedBy="usuarioReferido", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PagoReferidoPrimerNivel> usuarioReferidoPagoReferidoPrimerNivel;
     
