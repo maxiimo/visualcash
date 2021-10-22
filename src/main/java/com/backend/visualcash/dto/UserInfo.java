@@ -17,5 +17,5 @@ public interface UserInfo {
     int getDiasPaq();
     int getDiasPaqComplete();
     int getNAnuncios();
-    String getLastRefers();
+    String getLastRefers(); 
 }
