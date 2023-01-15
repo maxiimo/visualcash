@@ -7,7 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="crud" />
+<<<<<<< HEAD
         <module name="visualcash-master" />
+=======
+>>>>>>> 79034597de871f76f6675756a413f9b7dc2346fa
         <module name="visualcash" />
       </profile>
     </annotationProcessing>
@@ -16,7 +19,10 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="crud" options="-parameters" />
       <module name="visualcash" options="-parameters" />
+<<<<<<< HEAD
       <module name="visualcash-master" options="-parameters" />
+=======
+>>>>>>> 79034597de871f76f6675756a413f9b7dc2346fa
     </option>
   </component>
 </project>
