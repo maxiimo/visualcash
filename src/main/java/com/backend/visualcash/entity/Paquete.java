@@ -36,9 +36,9 @@ public class Paquete {
     @Column(nullable = false)
     private int coins;
 
-    /*@NotNull
-    @Column(nullable = false, columnDefinition = "decimal(10,2)")
-    private Double pago_diario;*/
+    @NotNull
+    @Column(nullable = false, columnDefinition = "numeric (10, 2)")
+    private Double pago_diario;
 
     @NotNull
     @Column(nullable = false, columnDefinition = "smallint")
