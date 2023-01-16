@@ -42,22 +42,22 @@ public class UsuarioPaquete  {
     private Usuario usuario;
     
     @NotNull
-    @Column(length = 2, columnDefinition = "tinyint(2) default 50")
-    private int dias;
+    @Column(length = 2, columnDefinition = "smallint")
+    private int dias = 50;
    
     @NotNull
-    @Column(length = 2, columnDefinition = "tinyint(2)")
+    @Column(length = 2, columnDefinition = "smallint")
     private int nAnuncios;
     
     @NotNull
-    @Column(length = 2, columnDefinition = "tinyint(2) default 0")
-    private int diasCompletados;
+    @Column(length = 2, columnDefinition = "smallint")
+    private int diasCompletados = 0;
  
     @NotNull
-    @Column(length = 12, columnDefinition = "decimal(10,2) default 0")
-    private double totalAcumulado;
+    @Column(length = 12, columnDefinition = "numeric(10,2)")
+    private double totalAcumulado = 0;
    
-    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT NULL")
+    @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCompletedAllAnuncios = null;
     
