@@ -1,6 +1,6 @@
 package com.backend.visualcash.security.entity;
 
-import com.backend.visualcash.entity.PagoReferidoPrimerNivel;
+import com.backend.visualcash.entity.PagoReferido;
 import com.backend.visualcash.entity.Payments;
 import com.backend.visualcash.entity.UsuarioNotificacion;
 import com.backend.visualcash.entity.UsuarioPaquete;
@@ -53,10 +53,10 @@ public class Usuario {
     private Set<Payments> payment;
     
     @OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PagoReferidoPrimerNivel> usuarioPagoReferidoPrimerNivel;
+    private Set<PagoReferido> usuarioPagoReferido;
     
     @OneToMany(mappedBy="usuarioReferido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PagoReferidoPrimerNivel> usuarioReferidoPagoReferidoPrimerNivel;
+    private Set<PagoReferido> usuarioReferidoPagoReferido;
     
     @OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UsuarioNotificacion> usuarioNotificacion;
@@ -198,20 +198,20 @@ public class Usuario {
         this.refer_code_refer = refer_code_refer;
     }    
 
-    public Set<PagoReferidoPrimerNivel> getUsuarioPagoReferidoPrimerNivel() {
-        return usuarioPagoReferidoPrimerNivel;
+    public Set<PagoReferido> getUsuarioPagoReferidoPrimerNivel() {
+        return usuarioPagoReferido;
     }
 
-    public void setUsuarioPagoReferidoPrimerNivel(Set<PagoReferidoPrimerNivel> usuarioPagoReferidoPrimerNivel) {
-        this.usuarioPagoReferidoPrimerNivel = usuarioPagoReferidoPrimerNivel;
+    public void setUsuarioPagoReferidoPrimerNivel(Set<PagoReferido> usuarioPagoReferido) {
+        this.usuarioPagoReferido = usuarioPagoReferido;
     }
 
-    public Set<PagoReferidoPrimerNivel> getUsuarioReferidoPagoReferidoPrimerNivel() {
-        return usuarioReferidoPagoReferidoPrimerNivel;
+    public Set<PagoReferido> getUsuarioReferidoPagoReferidoPrimerNivel() {
+        return usuarioReferidoPagoReferido;
     }
 
-    public void setUsuarioReferidoPagoReferidoPrimerNivel(Set<PagoReferidoPrimerNivel> usuarioReferidoPagoReferidoPrimerNivel) {
-        this.usuarioReferidoPagoReferidoPrimerNivel = usuarioReferidoPagoReferidoPrimerNivel;
+    public void setUsuarioReferidoPagoReferidoPrimerNivel(Set<PagoReferido> usuarioReferidoPagoReferido) {
+        this.usuarioReferidoPagoReferido = usuarioReferidoPagoReferido;
     }
 
     public Set<UsuarioNotificacion> getUsuarioNotificacion() {

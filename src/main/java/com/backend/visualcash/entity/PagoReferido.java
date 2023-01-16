@@ -6,14 +6,8 @@
 package com.backend.visualcash.entity;
 
 import com.backend.visualcash.security.entity.Usuario;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,31 +15,39 @@ import javax.validation.constraints.NotNull;
  * @author Fabian
  */
 @Entity
-public class PagoReferidoTercerNivel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@IdClass(PagoReferidoId.class)
+public class PagoReferido {
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Integer id;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_usuario")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name="id_usuario")
+    @Id
     private Usuario usuario;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id_referido")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name="id_referido")
+    @Id
     private Usuario usuarioReferido;
 
     @NotNull
-    @Column(columnDefinition = "decimal(10,2)")
+    @Column(columnDefinition = "numeric(10,2)")
     private Double pago;
-    public PagoReferidoTercerNivel() {
+
+    @NotNull
+    @Column(columnDefinition = "smallint")
+    private int nivel;
+
+    public PagoReferido() {
     }
 
-    public PagoReferidoTercerNivel(@NotNull Usuario usuario, @NotNull Usuario usuarioReferido, @NotNull Double pago) {
+    public PagoReferido(Usuario usuario, Usuario usuarioReferido, Double pago, int nivel) {
         this.usuario = usuario;
         this.usuarioReferido = usuarioReferido;
         this.pago = pago;
+        this.nivel = nivel;
     }
 
     public Integer getId() {
@@ -82,4 +84,3 @@ public class PagoReferidoTercerNivel {
     
     
 }
-
