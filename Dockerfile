@@ -10,6 +10,6 @@ RUN mvn clean package -DskipTests
 #
 FROM openjdk:11-jdk-slim
 COPY --from=build /target/visualcash-0.0.1-SNAPSHOT.jar visualcash.jar
-# ENV PORT=5432
-EXPOSE 5432
+# ENV PORT=8080
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","visualcash.jar"]
