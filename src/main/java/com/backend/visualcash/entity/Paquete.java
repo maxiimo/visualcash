@@ -41,7 +41,7 @@ public class Paquete {
     private Double pago_diario;
     
     @NotNull
-    @Column(nullable = false, columnDefinition = "tinyint(2)")
+    @Column(nullable = false, columnDefinition = "smallint(2)")
     private int n_anuncios;
     
     @Column(nullable = false) 
