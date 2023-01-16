@@ -15,46 +15,46 @@ public class Paquete {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     @NotNull
     @Column(nullable = false, length = 40)
     private String nombre;
-    
+
     @NotNull
     @Column(nullable = false, length = 1000)
     private String imagen;
-    
+
     @NotNull
     @Column(nullable = false, length = 255)
-    private String descripcion;    
-    
+    private String descripcion;
+
     @NotNull
     @Column(nullable = false)
     private int precio;
-    
+
     @NotNull
     @Column(nullable = false)
     private int coins;
-    
+
     @NotNull
     @Column(nullable = false, columnDefinition = "decimal(10,2)")
     private Double pago_diario;
-    
+
     @NotNull
-    @Column(nullable = false, columnDefinition = "smallint(2)")
+    @Column(nullable = false, columnDefinition = "smallint")
     private int n_anuncios;
-    
-    @Column(nullable = false) 
-    private boolean active = true;    
-    
+
+    @Column(nullable = false)
+    private boolean active = true;
+
     @OneToMany(mappedBy = "paquete"/*, cascade = CascadeType.ALL, orphanRemoval = true*/)
     private Set<UsuarioPaquete> usuarioPaquete;
-    
-    @OneToMany(mappedBy="paquete"/*, cascade = CascadeType.ALL, orphanRemoval = true*/)
+
+    @OneToMany(mappedBy = "paquete"/*, cascade = CascadeType.ALL, orphanRemoval = true*/)
     private Set<Payments> payment;
- 
+
     public Paquete() {
-        
+
     }
 
     public Paquete(String nombre, String imagen, String descripcion, int precio, int coins, Double pago_diario, int n_anuncios) {
@@ -66,7 +66,7 @@ public class Paquete {
         this.pago_diario = pago_diario;
         this.n_anuncios = n_anuncios;
     }
-    
+
     public Paquete(String nombre, String imagen, String descripcion, int precio, int coins, Double pago_diario, int n_anuncios, boolean active) {
         this.nombre = nombre;
         this.imagen = imagen;
@@ -165,6 +165,6 @@ public class Paquete {
     public void setPayment(Set<Payments> payment) {
         this.payment = payment;
     }
-    
+
 
 }
