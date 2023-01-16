@@ -61,8 +61,13 @@ public class AuthController {
     EmailService emailService;
     
     @Value("${url}")
-    private String url; 
-    
+    private String url;
+
+    @PostMapping("/test")
+    public String login(){
+        return "ok";
+    }
+
     @PostMapping("/signin")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody AccountUser loginUsuario, BindingResult bindingResult){
         if(bindingResult.hasErrors())
