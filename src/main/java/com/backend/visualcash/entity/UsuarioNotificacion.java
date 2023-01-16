@@ -42,7 +42,7 @@ public class UsuarioNotificacion {
     @Column(nullable = false, columnDefinition = "text")
     private String mensaje;
 
-    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date viewdAt = null;
 
