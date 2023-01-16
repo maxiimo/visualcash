@@ -39,7 +39,7 @@ public class Payments {
     private String to_currency;
     
     @NotNull
-    @Column(nullable = false, columnDefinition = "decimal(10,2)")
+    @Column(nullable = false, columnDefinition = "numeric(10,2)")
     private Double entered_amount;  
     
     @NotNull
@@ -59,13 +59,13 @@ public class Payments {
     private String status;        
     
     
-    @Column(columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
+    @Column(columnDefinition = "TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt = null; 
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", 
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+            columnDefinition="TIMESTAMP")
     private Date createdAt = new Date();
     
     @NotNull    
