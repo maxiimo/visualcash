@@ -21,14 +21,14 @@ public class PagoReferido {
     //private Integer id;
     
     @NotNull
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name="id_usuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_usuario")
     @Id
     private Usuario usuario;
     
     @NotNull
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name="id_referido")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id_referido")
     @Id
     private Usuario usuarioReferido;
 
